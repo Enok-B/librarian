@@ -2,8 +2,11 @@ group 'com.enok-b'
 version '1.0-SNAPSHOT'
 
 ext {
-    springbootVersion = "1.5.10.RELEASE"
-    junitVersion="4.12"
+    springbootVersion = "1.5.9.RELEASE"
+    junitVersion = "4.12"
+    springfoxVersion="2.7.0"
+    fastjsonVersion="1.2.44"
+    log4j2Version="2.10.0"
 }
 
 apply plugin: 'java'
@@ -20,6 +23,32 @@ repositories {
 }
 
 dependencies {
+    // Use JUnit test framework
     testCompile("junit:junit:${junitVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
+
+    compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
+    {
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+    compile("org.springframework.boot:spring-boot-starter-aop:${springbootVersion}")
+    {
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+    {
+        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-annotations'
+    }
+    compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
+
+    compile("com.alibaba:fastjson:${fastjsonVersion}")
+
+    compile("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+    compile("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+    compile("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+    compile("org.apache.commons:commons-lang3:3.7")
+
+    compile("commons-codec:commons-codec:1.11")
 }
