@@ -53,6 +53,9 @@ dependencies {
 
     compile("commons-codec:commons-codec:1.11")
 
+    compile("commons-collections:commons-collections:3.2.2")
+    compile("commons-logging:commons-logging:1.2")
+
     mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.6'
     mybatisGenerator group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
 }

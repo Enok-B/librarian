@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <context id="librarian" targetRuntime="MyBatis3" defaultModelType="flat">
+    <context id="librarian" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <commentGenerator>
             <property name="javaFileEncoding" value="utf-8"/>
             <property name="suppressAllComments" value="true"></property>
