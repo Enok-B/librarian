@@ -3,6 +3,8 @@ package com.enokb.librarian.dto;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @program: librarian
  * @description:
@@ -13,14 +15,14 @@ import org.hibernate.validator.constraints.NotBlank;
 public class IdDto {
 
     @ApiModelProperty(value = "ID", required = true, example = "7")
-    @NotBlank(message = "{dto.id.null}")
-    private String Id;
+    @NotNull(message = "{dto.id.null}")
+    private Integer Id;
 
-    public String getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         Id = id;
     }
 

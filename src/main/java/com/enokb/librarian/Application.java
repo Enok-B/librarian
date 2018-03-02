@@ -71,7 +71,7 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("rabbitHelper") // 任意，请稍微规范点
+        return new ApiInfoBuilder().title("librarian") // 任意，请稍微规范点
                 // .description("") 任意，请稍微规范点
                 .termsOfServiceUrl("http://localhost:7799/swagger-ui.html") // 将“url”换成自己的ip:port
                 .contact(new Contact("enok", "http://www.enok.com", "enok@enok-b.com")).version("1.1.0").build();

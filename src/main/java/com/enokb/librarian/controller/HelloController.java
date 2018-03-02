@@ -1,6 +1,5 @@
 package com.enokb.librarian.controller;
 
-import com.enokb.librarian.config.constant.ResponseCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/")
 public class HelloController {
+
     @ApiOperation(value = "首页", produces = "application/json")
     @GetMapping
     public ResponseEntity<String> welCome() {

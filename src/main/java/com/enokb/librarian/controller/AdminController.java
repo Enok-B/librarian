@@ -3,6 +3,8 @@ package com.enokb.librarian.controller;
 import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.domain.AdminDomain;
 import com.enokb.librarian.dto.Admin.AdminDto;
+import com.enokb.librarian.dto.Admin.AdminResultDto;
+import com.enokb.librarian.dto.IdDto;
 import com.enokb.librarian.service.IAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -11,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -40,5 +39,16 @@ public class AdminController extends AppWideExceptionHandler {
         AdminDomain admin = new AdminDomain();
         BeanUtils.copyProperties(request, admin);
         return new ResponseEntity<Integer>(iAdminService.insert(admin),  HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "查询管理员", produces = "application/json")
+    @GetMapping
+    public ResponseEntity<AdminResultDto> queryAdmin(@Valid @RequestBody IdDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        AdminResultDto admin = new AdminResultDto();
+        BeanUtils.copyProperties(iAdminService.selectById(request.getId()), admin);
+        return new ResponseEntity<AdminResultDto>(admin, HttpStatus.OK);
     }
 }
