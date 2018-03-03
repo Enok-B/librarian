@@ -1,5 +1,6 @@
 package com.enokb.librarian.controller;
 
+import com.enokb.librarian.dto.Admin.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,8 @@ public class HelloController {
 
     @ApiOperation(value = "首页", produces = "application/json")
     @GetMapping
-    public ResponseEntity<String> welCome() {
-        return new ResponseEntity<String>(
-                "Welcome from librarian @Enok", HttpStatus.OK);
+    public ResponseEntity<ResponseDto<String>> welCome() {
+        return new ResponseEntity<ResponseDto<String>>(new ResponseDto<>("Welcome from librarian @Enok")
+                , HttpStatus.OK);
     }
 }

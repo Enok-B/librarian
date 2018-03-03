@@ -2,8 +2,6 @@ package com.enokb.librarian.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.enokb.librarian.domain.AdminDomain;
-import com.enokb.librarian.dto.IdDto;
-import com.enokb.librarian.mapper.AdminMapper;
 import com.enokb.librarian.service.IAdminService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.BDDMockito.given;
 
@@ -36,10 +36,19 @@ public class AdminControllerTest {
 
     @Test
     public void queryAdminRightId() throws Exception {
-        IdDto id = new IdDto();
-        id.setId(7);
-        mockMvc.perform(get("/admin").accept(MediaType.APPLICATION_JSON_UTF8)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(JSON.toJSONString(id))).andExpect(status().isOk());
+        mockMvc.perform(get("/admin/user?id=7").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.amdimId").value("7"))
+                .andExpect(jsonPath("$.data.name").value("Enok"))
+                .andExpect(jsonPath("$.data.password").value("password"))
+                .andExpect(jsonPath("$.data.permission").value("true"))
+                .andExpect(jsonPath("$.data.area").value("1"));
+    }
+
+    @Test
+    public void queryAdminNullId() throws Exception {
+        mockMvc.perform(get("/admin/user?id=").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$.data").isNotEmpty());
     }
 
     private AdminDomain initAdmin() {

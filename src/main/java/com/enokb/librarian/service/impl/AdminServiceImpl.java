@@ -5,6 +5,7 @@ import com.enokb.librarian.mapper.AdminMapper;
 import com.enokb.librarian.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @program: librarian
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author: ksewen
  * @create: 2018-03-02 17:48
  **/
-@Component
+@Service
 public class AdminServiceImpl implements IAdminService {
 
     @Autowired

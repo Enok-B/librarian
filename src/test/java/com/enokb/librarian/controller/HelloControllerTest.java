@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @create: 2018-02-25 14:42
  **/
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = {HelloController.class})
+@WebMvcTest(HelloController.class)
 public class HelloControllerTest {
 
     @Autowired
@@ -33,6 +34,6 @@ public class HelloControllerTest {
 
     @Test
     public void hello() throws Exception {
-        mockMvc.perform(get("/")).andExpect(status().isOk());
+        mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(jsonPath("$.data").isNotEmpty());
     }
 }

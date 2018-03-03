@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class AdminDto {
 
     @ApiModelProperty(value = "AdminId", required = true, example = "7")
-    @NotNull(message = "{dto.id.null}")
+    @NotNull(message = "{admin.id.null}")
     private Integer amdimId;
 
     @ApiModelProperty(value = "Admin用户名", required = true, example = "Enok")
