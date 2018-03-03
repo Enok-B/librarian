@@ -42,12 +42,7 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
 
     compile("io.springfox:springfox-swagger2:${springfoxVersion}")
-    {
-        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-annotations'
-    }
     compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
-
-    compile("com.alibaba:fastjson:${fastjsonVersion}")
 
     compile("org.apache.commons:commons-lang3:3.7")
 
