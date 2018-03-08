@@ -4,7 +4,7 @@ import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.domain.AdminDomain;
 import com.enokb.librarian.dto.Admin.AdminDto;
 import com.enokb.librarian.dto.Admin.AdminResultDto;
-import com.enokb.librarian.dto.Admin.ResponseDto;
+import com.enokb.librarian.dto.ResponseDto;
 import com.enokb.librarian.service.IAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;

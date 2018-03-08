@@ -11,7 +11,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.enokb.librarian.config.exception.InvalidParamException;
-import com.enokb.librarian.dto.Admin.ResponseDto;
+import com.enokb.librarian.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

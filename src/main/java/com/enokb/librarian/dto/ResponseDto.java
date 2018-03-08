@@ -1,4 +1,4 @@
-package com.enokb.librarian.dto.Admin;
+package com.enokb.librarian.dto;
 
 /**
  * @program: librarian

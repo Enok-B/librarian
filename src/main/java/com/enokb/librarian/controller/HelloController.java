@@ -1,11 +1,10 @@
 package com.enokb.librarian.controller;
 
-import com.enokb.librarian.dto.Admin.ResponseDto;
+import com.enokb.librarian.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;

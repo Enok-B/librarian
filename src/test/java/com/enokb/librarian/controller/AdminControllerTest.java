@@ -1,6 +1,5 @@
 package com.enokb.librarian.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.enokb.librarian.domain.AdminDomain;
 import com.enokb.librarian.service.IAdminService;
 import org.junit.Before;
@@ -13,11 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = AdminController.class, secure = false)
