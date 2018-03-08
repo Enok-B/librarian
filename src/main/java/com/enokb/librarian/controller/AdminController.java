@@ -40,7 +40,7 @@ public class AdminController extends AppWideExceptionHandler {
         }
         AdminDomain admin = new AdminDomain();
         BeanUtils.copyProperties(request, admin);
-        return new ResponseEntity<ResponseDto<Integer>>(new ResponseDto<>(iAdminService.insert(admin)), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto<Integer>>(ResponseDto.ok(iAdminService.insert(admin)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "查询管理员", produces = "application/json")
@@ -48,6 +48,6 @@ public class AdminController extends AppWideExceptionHandler {
     public ResponseEntity<ResponseDto<AdminResultDto>> queryAdmin(@NotNull(message = "{admin.id.null}") @RequestParam Integer id) {
         AdminResultDto admin = new AdminResultDto();
         BeanUtils.copyProperties(iAdminService.selectById(id), admin);
-        return new ResponseEntity<ResponseDto<AdminResultDto>>(new ResponseDto<>(admin), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto<AdminResultDto>>(ResponseDto.ok(admin), HttpStatus.OK);
     }
 }
