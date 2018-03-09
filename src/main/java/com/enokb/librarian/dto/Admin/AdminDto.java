@@ -1,5 +1,6 @@
 package com.enokb.librarian.dto.Admin;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+@ApiModel
 public class AdminDto {
 
     @ApiModelProperty(value = "AdminId", required = true, example = "7")

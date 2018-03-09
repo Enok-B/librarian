@@ -1,11 +1,14 @@
 package com.enokb.librarian.mapper;
 
 import com.enokb.librarian.domain.BookDomain;
+import com.enokb.librarian.model.BookSearchModel;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface BookMapper {
 
     @Delete({
@@ -69,4 +72,14 @@ public interface BookMapper {
             "where book_Id = #{bookId,jdbcType=INTEGER}"
     })
     int updateById(BookDomain record);
+
+    @Select("<script>SELECT isbn, name, price, type, author, press " +
+            "FROM book " +
+            "WHERE 1=1 " +
+            "<if test='#{condition.isbn} != null'>AND isbn=#{condition.isbn}</if> " +
+            "<if test='#{condition.name} != null'>AND LOCATE(#{condition.name}, `name`)>0</if> " +
+            "<if test='#{condition.type} != null'>AND type=#{condition.type}</if> " +
+            "<if test='#{condition.author} != null'>AND LOCATE(#{condition.author}, `author`)>0</if> " +
+            "<if test='#{condition.press} != null'>AND LOCATE(#{condition.press}, `press`)>0</if> </script>")
+    List<BookDomain> searchBook(@Param("condition") BookSearchModel bookSearchModel);
 }

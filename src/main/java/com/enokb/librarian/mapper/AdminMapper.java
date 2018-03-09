@@ -3,7 +3,9 @@ package com.enokb.librarian.mapper;
 import com.enokb.librarian.domain.AdminDomain;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminMapper {
 
     @Delete({

@@ -34,20 +34,20 @@ public class AdminController extends AppWideExceptionHandler {
 
     @ApiOperation(value = "新增管理员", produces = "application/json")
     @PostMapping(value = "/user")
-    public ResponseEntity<ResponseDto<Integer>> insertAdmin(@Valid @RequestBody AdminDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> insertAdmin(@Valid @RequestBody AdminDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
         AdminDomain admin = new AdminDomain();
         BeanUtils.copyProperties(request, admin);
-        return new ResponseEntity<ResponseDto<Integer>>(ResponseDto.ok(iAdminService.insert(admin)), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.insert(admin)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "查询管理员", produces = "application/json")
     @GetMapping("/user")
-    public ResponseEntity<ResponseDto<AdminResultDto>> queryAdmin(@NotNull(message = "{admin.id.null}") @RequestParam Integer id) {
+    public ResponseEntity<ResponseDto> queryAdmin(@NotNull(message = "{admin.id.null}") @RequestParam Integer id) {
         AdminResultDto admin = new AdminResultDto();
         BeanUtils.copyProperties(iAdminService.selectById(id), admin);
-        return new ResponseEntity<ResponseDto<AdminResultDto>>(ResponseDto.ok(admin), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(admin), HttpStatus.OK);
     }
 }

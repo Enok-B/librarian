@@ -31,22 +31,6 @@ public class Application extends WebMvcConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-//
-//    @Override
-//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        super.configureMessageConverters(converters);
-//        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-//        FastJsonConfig config = new FastJsonConfig();
-//        config.setSerializerFeatures(SerializerFeature.PrettyFormat);
-//        config.setDateFormat("yyyy-MM-dd HH:mm:ss");
-//        // 处理中文乱码问题
-//        List<MediaType> fastMediaTypes = new ArrayList<>();
-//        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-//        converter.setSupportedMediaTypes(fastMediaTypes);
-//        converter.setFastJsonConfig(config);
-//
-//        converters.add(converter);
-//    }
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
