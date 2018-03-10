@@ -41,6 +41,24 @@ public interface UserMapper {
     })
     UserDomain selectById(Integer userId);
 
+    @Select({
+            "select",
+            "user_Id, student_Id, name, passwoed, group, quota, borrwing, credit",
+            "from user",
+            "where user_Name = #{userName,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="user_Id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="student_Id", property="studentId", jdbcType=JdbcType.INTEGER),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="passwoed", property="passwoed", jdbcType=JdbcType.VARCHAR),
+            @Result(column="group", property="group", jdbcType=JdbcType.VARCHAR),
+            @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
+            @Result(column="borrwing", property="borrwing", jdbcType=JdbcType.INTEGER),
+            @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER)
+    })
+    UserDomain selectByName(String userName);
+
     @Update({
         "update user",
         "set student_Id = #{studentId,jdbcType=INTEGER},",

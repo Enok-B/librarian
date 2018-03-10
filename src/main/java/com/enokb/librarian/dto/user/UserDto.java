@@ -1,21 +1,20 @@
-package com.enokb.librarian.domain;
+package com.enokb.librarian.dto.user;
+
+import com.enokb.librarian.model.BaseModel;
 
 import java.util.List;
 
-public class UserDomain {
-    private Integer userId;
+public class UserDto extends BaseModel {
 
     private Integer studentId;
 
     private String name;
 
-    private String passwoed;
+    private String password;
 
     private String group;
 
     private Integer quota;
-
-    private Integer borrwing;
 
     private Integer credit;
 
@@ -27,14 +26,6 @@ public class UserDomain {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getStudentId() {
@@ -50,15 +41,15 @@ public class UserDomain {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public String getPasswoed() {
-        return passwoed;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswoed(String passwoed) {
-        this.passwoed = passwoed == null ? null : passwoed.trim();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getGroup() {
@@ -66,7 +57,7 @@ public class UserDomain {
     }
 
     public void setGroup(String group) {
-        this.group = group == null ? null : group.trim();
+        this.group = group;
     }
 
     public Integer getQuota() {
@@ -77,19 +68,24 @@ public class UserDomain {
         this.quota = quota;
     }
 
-    public Integer getBorrwing() {
-        return borrwing;
-    }
-
-    public void setBorrwing(Integer borrwing) {
-        this.borrwing = borrwing;
-    }
-
     public Integer getCredit() {
         return credit;
     }
 
     public void setCredit(Integer credit) {
         this.credit = credit;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "studentId=" + studentId +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", group='" + group + '\'' +
+                ", quota=" + quota +
+                ", credit=" + credit +
+                ", roles=" + roles +
+                '}';
     }
 }
