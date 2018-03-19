@@ -1,4 +1,4 @@
-package com.enokb.utils;
+package com.enokb.librarian.utils;
 
 import java.util.List;
 

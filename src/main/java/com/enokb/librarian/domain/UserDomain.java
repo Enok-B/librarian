@@ -3,62 +3,91 @@ package com.enokb.librarian.domain;
 import java.util.List;
 
 public class UserDomain {
-    private Integer userId;
+    private String id;
 
-    private Integer studentId;
+    private String studentid;
 
-    private String name;
+    private String username;
 
-    private String passwoed;
+    private String password;
 
     private String group;
 
     private Integer quota;
 
-    private Integer borrwing;
+    private Integer borrowed;
 
     private Integer credit;
 
-    private List<String> roles;
+    private String token;
 
-    public List<String> getRoles() {
-        return roles;
+    private List<RoleDomain> roles;
+
+    public UserDomain() {
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    private UserDomain(Builder builder) {
+        setId(builder.id);
+        setStudentid(builder.studentid);
+        setUsername(builder.username);
+        setPassword(builder.password);
+        setGroup(builder.group);
+        setQuota(builder.quota);
+        setBorrowed(builder.borrowed);
+        setCredit(builder.credit);
+        setToken(builder.token);
+        setRoles(builder.roles);
     }
 
-    public Integer getUserId() {
-        return userId;
+    public static Builder newBuilder() {
+        return new Builder();
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public static Builder newBuilder(UserDomain copy) {
+        Builder builder = new Builder();
+        builder.id = copy.getId();
+        builder.studentid = copy.getStudentid();
+        builder.username = copy.getUsername();
+        builder.password = copy.getPassword();
+        builder.group = copy.getGroup();
+        builder.quota = copy.getQuota();
+        builder.borrowed = copy.getBorrowed();
+        builder.credit = copy.getCredit();
+        builder.token = copy.getToken();
+        builder.roles = copy.getRoles();
+        return builder;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public String getId() {
+        return id;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getStudentid() {
+        return studentid;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setStudentid(String studentid) {
+        this.studentid = studentid == null ? null : studentid.trim();
     }
 
-    public String getPasswoed() {
-        return passwoed;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPasswoed(String passwoed) {
-        this.passwoed = passwoed == null ? null : passwoed.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getGroup() {
@@ -77,12 +106,12 @@ public class UserDomain {
         this.quota = quota;
     }
 
-    public Integer getBorrwing() {
-        return borrwing;
+    public Integer getBorrowed() {
+        return borrowed;
     }
 
-    public void setBorrwing(Integer borrwing) {
-        this.borrwing = borrwing;
+    public void setBorrowed(Integer borrowed) {
+        this.borrowed = borrowed;
     }
 
     public Integer getCredit() {
@@ -91,5 +120,98 @@ public class UserDomain {
 
     public void setCredit(Integer credit) {
         this.credit = credit;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    public List<RoleDomain> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDomain> roles) {
+        this.roles = roles;
+    }
+
+
+    public static final class Builder {
+        private String id;
+        private String studentid;
+        private String username;
+        private String password;
+        private String group;
+        private Integer quota;
+        private Integer borrowed;
+        private Integer credit;
+        private Boolean role;
+        private String token;
+        private List<RoleDomain> roles;
+
+        private Builder() {
+        }
+
+        public Builder id(String val) {
+            id = val;
+            return this;
+        }
+
+        public Builder studentid(String val) {
+            studentid = val;
+            return this;
+        }
+
+        public Builder username(String val) {
+            username = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder group(String val) {
+            group = val;
+            return this;
+        }
+
+        public Builder quota(Integer val) {
+            quota = val;
+            return this;
+        }
+
+        public Builder borrowed(Integer val) {
+            borrowed = val;
+            return this;
+        }
+
+        public Builder credit(Integer val) {
+            credit = val;
+            return this;
+        }
+
+        public Builder role(Boolean val) {
+            role = val;
+            return this;
+        }
+
+        public Builder token(String val) {
+            token = val;
+            return this;
+        }
+
+        public Builder roles(List<RoleDomain> val) {
+            roles = val;
+            return this;
+        }
+
+        public UserDomain build() {
+            return new UserDomain(this);
+        }
     }
 }

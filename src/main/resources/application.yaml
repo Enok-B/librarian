@@ -9,9 +9,14 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 
-#pagehelper分页插件
-#pagehelper:
-    #helperDialect: mysql
-    #reasonable: true
-    #supportMethodsArguments: true
-    #params: count=countSql
+# JWT
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+      register: "auth/register"

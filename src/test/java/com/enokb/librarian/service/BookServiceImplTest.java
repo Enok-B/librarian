@@ -1,14 +1,11 @@
 package com.enokb.librarian.service;
 
-import com.enokb.enums.BookType;
-import com.enokb.librarian.domain.BookDomain;
+import com.enokb.librarian.enums.BookType;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
-import com.enokb.librarian.mapper.BookMapper;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.impl.BookServiceImpl;
 import org.junit.Assert;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)

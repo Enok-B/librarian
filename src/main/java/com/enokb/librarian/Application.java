@@ -27,29 +27,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAspectJAutoProxy
 @SpringBootApplication
 @MapperScan("com.enokb.librarian.mapper")
-public class Application extends WebMvcConfigurerAdapter {
+public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        AntPathMatcher pathMatcher = new AntPathMatcher();
-        pathMatcher.setCaseSensitive(false);
-        configurer.setPathMatcher(pathMatcher);
-    }
-
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.enokb.librarian.controller"))
-                .paths(PathSelectors.any()).build().useDefaultResponseMessages(false);
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("librarian") // 任意，请稍微规范点
-                // .description("") 任意，请稍微规范点
-                .termsOfServiceUrl("http://localhost:7799/swagger-ui.html") // 将“url”换成自己的ip:port
-                .contact(new Contact("enok", "http://www.enok.com", "enok@enok-b.com")).version("1.1.0").build();
     }
 }

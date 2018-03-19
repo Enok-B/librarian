@@ -1,7 +1,8 @@
-package com.enokb.security;
+package com.enokb.librarian.security;
 
+import com.enokb.librarian.domain.RoleDomain;
 import com.enokb.librarian.domain.UserDomain;
-import com.enokb.librarian.dto.user.UserDto;
+import com.enokb.librarian.model.JwtUserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -13,11 +14,14 @@ public final class JwtUserFactory {
     private JwtUserFactory() {
     }
 
-    public static JwtUser create(UserDomain user) {
-        return new JwtUser(
-                "userid",
-                mapToGrantedAuthorities(user.getRoles())
-        );
+    public static JwtUserModel create(UserDomain user) {
+        return JwtUserModel.newBuilder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .authorities(mapToGrantedAuthorities(user.getRoles()
+                        .stream().map(r -> r.getName()).collect(Collectors.toList())))
+                .build();
     }
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<String> authorities) {

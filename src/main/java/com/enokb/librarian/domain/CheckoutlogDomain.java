@@ -3,48 +3,48 @@ package com.enokb.librarian.domain;
 import java.util.Date;
 
 public class CheckoutlogDomain {
-    private Integer id;
+    private String id;
 
-    private Integer userid;
+    private String userid;
 
-    private Integer bookid;
+    private String bookid;
 
-    private Integer adminid;
+    private String operator;
 
     private Date date;
 
-    private Integer stateFlag;
+    private Boolean status;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Integer getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
-    public Integer getBookid() {
+    public String getBookid() {
         return bookid;
     }
 
-    public void setBookid(Integer bookid) {
-        this.bookid = bookid;
+    public void setBookid(String bookid) {
+        this.bookid = bookid == null ? null : bookid.trim();
     }
 
-    public Integer getAdminid() {
-        return adminid;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public Date getDate() {
@@ -55,11 +55,11 @@ public class CheckoutlogDomain {
         this.date = date;
     }
 
-    public Integer getStateFlag() {
-        return stateFlag;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setStateFlag(Integer stateFlag) {
-        this.stateFlag = stateFlag;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

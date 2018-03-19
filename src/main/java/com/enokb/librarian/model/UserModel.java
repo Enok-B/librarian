@@ -1,12 +1,10 @@
-package com.enokb.librarian.dto.user;
-
-import com.enokb.librarian.model.BaseModel;
+package com.enokb.librarian.model;
 
 import java.util.List;
 
-public class UserDto extends BaseModel {
+public class UserModel extends BaseModel {
 
-    private String studentId;
+    private Integer studentId;
 
     private String name;
 
@@ -28,11 +26,11 @@ public class UserDto extends BaseModel {
         this.roles = roles;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 

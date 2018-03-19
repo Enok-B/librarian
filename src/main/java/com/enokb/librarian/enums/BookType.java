@@ -1,4 +1,4 @@
-package com.enokb.enums;
+package com.enokb.librarian.enums;
 
 public enum BookType {
     EDUCATION(0), NOVEL(1), ART(2), TECHNOLOGY(3);
