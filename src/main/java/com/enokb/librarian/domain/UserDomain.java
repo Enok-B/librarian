@@ -11,7 +11,7 @@ public class UserDomain {
 
     private String password;
 
-    private String group;
+    private String grade;
 
     private Integer quota;
 
@@ -31,7 +31,7 @@ public class UserDomain {
         setStudentid(builder.studentid);
         setUsername(builder.username);
         setPassword(builder.password);
-        setGroup(builder.group);
+        setGrade(builder.grade);
         setQuota(builder.quota);
         setBorrowed(builder.borrowed);
         setCredit(builder.credit);
@@ -49,7 +49,7 @@ public class UserDomain {
         builder.studentid = copy.getStudentid();
         builder.username = copy.getUsername();
         builder.password = copy.getPassword();
-        builder.group = copy.getGroup();
+        builder.grade = copy.getGrade();
         builder.quota = copy.getQuota();
         builder.borrowed = copy.getBorrowed();
         builder.credit = copy.getCredit();
@@ -90,12 +90,12 @@ public class UserDomain {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getGroup() {
-        return group;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setGroup(String group) {
-        this.group = group == null ? null : group.trim();
+    public void setGrade(String grade) {
+        this.grade = grade == null ? null : grade.trim();
     }
 
     public Integer getQuota() {
@@ -144,7 +144,7 @@ public class UserDomain {
         private String studentid;
         private String username;
         private String password;
-        private String group;
+        private String grade;
         private Integer quota;
         private Integer borrowed;
         private Integer credit;
@@ -175,8 +175,8 @@ public class UserDomain {
             return this;
         }
 
-        public Builder group(String val) {
-            group = val;
+        public Builder grade(String val) {
+            grade = val;
             return this;
         }
 

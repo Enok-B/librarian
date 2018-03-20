@@ -4,9 +4,11 @@ import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.dto.ResponseDto;
 import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.model.UserRegisterModel;
+import com.enokb.librarian.service.IAuthService;
 import com.enokb.librarian.service.IUserService;
 import com.enokb.librarian.utils.BeanMapperUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,7 +29,8 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private IUserService iUserService;
+    @Autowired
+    private IAuthService iAuthService;
 
     @ApiOperation(value = "注册用户", produces = "application/json")
     @PostMapping("/register")
@@ -35,8 +38,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
-        return new ResponseEntity<ResponseDto>(ResponseDto.ok(BeanMapperUtil
-                .createAndCopyProperties(iUserService.register(BeanMapperUtil
-                        .createAndCopyProperties(request, UserRegisterModel.class)), UserDto.class)), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAuthService.register(BeanMapperUtil
+                        .createAndCopyProperties(request, UserRegisterModel.class))), HttpStatus.OK);
     }
 }

@@ -11,11 +11,34 @@ public class UserRegisterModel {
 
     private String studentId;
 
-    private String name;
+    private String username;
 
     private String password;
 
-    private String group;
+    private String grade;
+
+    public UserRegisterModel() {
+    }
+
+    private UserRegisterModel(Builder builder) {
+        setStudentId(builder.studentId);
+        setUsername(builder.username);
+        setPassword(builder.password);
+        setGrade(builder.grade);
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(UserRegisterModel copy) {
+        Builder builder = new Builder();
+        builder.studentId = copy.getStudentId();
+        builder.username = copy.getUsername();
+        builder.password = copy.getPassword();
+        builder.grade = copy.getGrade();
+        return builder;
+    }
 
     public String getStudentId() {
         return studentId;
@@ -25,12 +48,12 @@ public class UserRegisterModel {
         this.studentId = studentId;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -41,11 +64,46 @@ public class UserRegisterModel {
         this.password = password;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+
+    public static final class Builder {
+        private String studentId;
+        private String username;
+        private String password;
+        private String grade;
+
+        private Builder() {
+        }
+
+        public Builder studentId(String val) {
+            studentId = val;
+            return this;
+        }
+
+        public Builder username(String val) {
+            username = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder grade(String val) {
+            grade = val;
+            return this;
+        }
+
+        public UserRegisterModel build() {
+            return new UserRegisterModel(this);
+        }
     }
 }

@@ -18,18 +18,18 @@ public interface UserMapper {
     @Insert({
         "insert into user (id, studentId, ",
         "username, password, ",
-        "group, quota, borrowed, ",
+        "grade, quota, borrowed, ",
         "credit, token)",
         "values (#{id,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, ",
         "#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
-        "#{group,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrowed,jdbcType=INTEGER}, ",
-        "#{credit,jdbcType=INTEGER}, #{role,jdbcType=BIT}, #{token,jdbcType=VARCHAR})"
+        "#{grade,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrowed,jdbcType=INTEGER}, ",
+        "#{credit,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR})"
     })
     int insert(UserDomain record);
 
     @Select({
         "select",
-        "id, studentId, username, password, group, quota, borrowed, credit, token",
+        "id, studentId, username, password, grade, quota, borrowed, credit, token",
         "from user",
         "where id = #{id,jdbcType=VARCHAR}"
     })
@@ -38,7 +38,7 @@ public interface UserMapper {
         @Result(column="studentId", property="studentid", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
-        @Result(column="group", property="group", jdbcType=JdbcType.VARCHAR),
+        @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
         @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
         @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
         @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER),
@@ -48,7 +48,7 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, studentId, username, password, group, quota, borrowed, credit, token",
+        "id, studentId, username, password, grade, quota, borrowed, credit, token",
         "from user"
     })
     @Results({
@@ -56,7 +56,7 @@ public interface UserMapper {
         @Result(column="studentId", property="studentid", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
-        @Result(column="group", property="group", jdbcType=JdbcType.VARCHAR),
+        @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
         @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
         @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
         @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER),
@@ -69,7 +69,6 @@ public interface UserMapper {
         "set studentId = #{studentid,jdbcType=VARCHAR},",
           "username = #{username,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
-          "group = #{group,jdbcType=VARCHAR},",
           "quota = #{quota,jdbcType=INTEGER},",
           "borrowed = #{borrowed,jdbcType=INTEGER},",
           "credit = #{credit,jdbcType=INTEGER},",

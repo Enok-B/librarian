@@ -10,7 +10,7 @@ public class UserModel extends BaseModel {
 
     private String password;
 
-    private String group;
+    private String grade;
 
     private Integer quota;
 
@@ -50,12 +50,12 @@ public class UserModel extends BaseModel {
         this.password = password;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public Integer getQuota() {
@@ -80,7 +80,7 @@ public class UserModel extends BaseModel {
                 "studentId=" + studentId +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", group='" + group + '\'' +
+                ", grade='" + grade + '\'' +
                 ", quota=" + quota +
                 ", credit=" + credit +
                 ", roles=" + roles +

@@ -8,11 +8,11 @@ public class UserDto extends BaseModel {
 
     private String studentId;
 
-    private String name;
+    private String username;
 
     private String password;
 
-    private String group;
+    private String grade;
 
     private Integer quota;
 
@@ -36,12 +36,12 @@ public class UserDto extends BaseModel {
         this.studentId = studentId;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -52,12 +52,12 @@ public class UserDto extends BaseModel {
         this.password = password;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public Integer getQuota() {
@@ -80,9 +80,9 @@ public class UserDto extends BaseModel {
     public String toString() {
         return "UserDto{" +
                 "studentId=" + studentId +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", group='" + group + '\'' +
+                ", grade='" + grade + '\'' +
                 ", quota=" + quota +
                 ", credit=" + credit +
                 ", roles=" + roles +

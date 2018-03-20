@@ -10,7 +10,7 @@ public interface UserExtMapper {
 
     @Select({
             "select",
-            "id, studentId, username, password, group, quota, borrowed, credit, token",
+            "id, studentId, username, password, grade, quota, borrowed, credit, token",
             "from user",
             "where username = #{username,jdbcType=VARCHAR}"
     })
@@ -18,7 +18,7 @@ public interface UserExtMapper {
 
     @Select({
             "select",
-            "id, studentId, username, password, group, quota, borrowed, credit, token",
+            "id, studentId, username, password, grade, quota, borrowed, credit, token",
             "from user",
             "where studentId = #{studentId,jdbcType=VARCHAR}"
     })
@@ -26,7 +26,7 @@ public interface UserExtMapper {
 
     @Select({
             "select",
-            " u.id, u.studentId, u.username, u.password, u.group, u.quota, u.borrowed, u.credit, u.token, r.id, r.name",
+            " u.id, u.studentId, u.username, u.password, u.grade, u.quota, u.borrowed, u.credit, u.token, r.id, r.name",
             " from user as u",
             " LEFT JOIN role_user as sru on u.id = sru.userId",
             " LEFT JOIN role as r on sru.roleId = r.id",
@@ -37,7 +37,7 @@ public interface UserExtMapper {
             @Result(column = "studentId", property = "studentid", jdbcType = JdbcType.VARCHAR),
             @Result(column = "username", property = "username", jdbcType = JdbcType.VARCHAR),
             @Result(column = "password", property = "password", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "group", property = "group", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "grade", property = "grade", jdbcType = JdbcType.VARCHAR),
             @Result(column = "quota", property = "quota", jdbcType = JdbcType.INTEGER),
             @Result(column = "borrowed", property = "borrowed", jdbcType = JdbcType.INTEGER),
             @Result(column = "credit", property = "credit", jdbcType = JdbcType.INTEGER),
