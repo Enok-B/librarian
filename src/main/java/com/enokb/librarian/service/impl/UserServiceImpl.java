@@ -1,6 +1,5 @@
 package com.enokb.librarian.service.impl;
 
-import com.enokb.librarian.config.exception.RegisterFailedException;
 import com.enokb.librarian.config.exception.UserExistException;
 import com.enokb.librarian.domain.RoleUserDomain;
 import com.enokb.librarian.domain.UserDomain;
@@ -8,19 +7,14 @@ import com.enokb.librarian.enums.UserRoles;
 import com.enokb.librarian.mapper.RoleUserMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.mapper.UserMapper;
-import com.enokb.librarian.model.UserModel;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.IUserService;
-import com.enokb.librarian.utils.BeanMapperUtil;
 import com.enokb.librarian.utils.IDUtil;
-import com.enokb.librarian.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
 
 /**
  * @program: librarian

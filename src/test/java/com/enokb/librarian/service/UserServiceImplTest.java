@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -36,14 +37,13 @@ public class UserServiceImplTest {
     private UserDetailsService userDetailsService;
 
     @MockBean
-    private JwtTokenUtil jwtTokenUtil;
+    private PasswordEncoder encoder;
 
     @Autowired
     private UserServiceImpl userService;
 
     public void setUp() {
         given(userExtMapper.selectByName("enok")).willReturn(null);
-        given(jwtTokenUtil.generateToken(ArgumentMatchers.any())).willReturn("token");
         given(userMapper.insert(ArgumentMatchers.any())).willReturn(1);
         given(roleUserMapper.insert(ArgumentMatchers.any())).willReturn(1);
     }
