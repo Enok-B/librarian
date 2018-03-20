@@ -34,11 +34,22 @@ public class AuthController {
 
     @ApiOperation(value = "注册用户", produces = "application/json")
     @PostMapping("/register")
+    //FIXME: 返回boolean会报json转换错误
     public ResponseEntity<ResponseDto> register(@Valid @RequestBody UserDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAuthService.register(BeanMapperUtil
-                        .createAndCopyProperties(request, UserRegisterModel.class))), HttpStatus.OK);
+                .createAndCopyProperties(request, UserRegisterModel.class))), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "登录", produces = "application/json")
+    @PostMapping("/login")
+    public ResponseEntity<ResponseDto> login(@Valid @RequestBody UserDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAuthService
+                .login(request.getStudentId(), request.getPassword())), HttpStatus.OK);
     }
 }

@@ -17,7 +17,7 @@ public final class JwtUserFactory {
     public static JwtUserModel create(UserDomain user) {
         return JwtUserModel.newBuilder()
                 .id(user.getId())
-                .username(user.getUsername())
+                .studentId(user.getStudentid())
                 .password(user.getPassword())
                 .authorities(mapToGrantedAuthorities(user.getRoles()
                         .stream().map(r -> r.getName()).collect(Collectors.toList())))

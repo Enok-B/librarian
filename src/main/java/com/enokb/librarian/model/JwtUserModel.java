@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class JwtUserModel implements UserDetails {
     private String id;
-    private String username;
+    private String studentId;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -17,7 +17,7 @@ public class JwtUserModel implements UserDetails {
 
     private JwtUserModel(Builder builder) {
         setId(builder.id);
-        setUsername(builder.username);
+        setStudentId(builder.studentId);
         setPassword(builder.password);
         setAuthorities(builder.authorities);
     }
@@ -29,7 +29,7 @@ public class JwtUserModel implements UserDetails {
     public static Builder newBuilder(JwtUserModel copy) {
         Builder builder = new Builder();
         builder.id = copy.getId();
-        builder.username = copy.getUsername();
+        builder.studentId = copy.getStudentId();
         builder.password = copy.getPassword();
         builder.authorities = copy.getAuthorities();
         return builder;
@@ -47,7 +47,7 @@ public class JwtUserModel implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return studentId;
     }
 
     @Override
@@ -78,8 +78,12 @@ public class JwtUserModel implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public void setPassword(String password) {
@@ -90,9 +94,10 @@ public class JwtUserModel implements UserDetails {
         this.authorities = authorities;
     }
 
+
     public static final class Builder {
         private String id;
-        private String username;
+        private String studentId;
         private String password;
         private Collection<? extends GrantedAuthority> authorities;
 
@@ -104,8 +109,8 @@ public class JwtUserModel implements UserDetails {
             return this;
         }
 
-        public Builder username(String val) {
-            username = val;
+        public Builder studentId(String val) {
+            studentId = val;
             return this;
         }
 

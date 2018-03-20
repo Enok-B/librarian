@@ -19,17 +19,17 @@ public interface UserMapper {
         "insert into user (id, studentId, ",
         "username, password, ",
         "grade, quota, borrowed, ",
-        "credit, token)",
+        "credit)",
         "values (#{id,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, ",
         "#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
         "#{grade,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrowed,jdbcType=INTEGER}, ",
-        "#{credit,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR})"
+        "#{credit,jdbcType=INTEGER})"
     })
     int insert(UserDomain record);
 
     @Select({
         "select",
-        "id, studentId, username, password, grade, quota, borrowed, credit, token",
+        "id, studentId, username, password, grade, quota, borrowed, credit",
         "from user",
         "where id = #{id,jdbcType=VARCHAR}"
     })
@@ -41,14 +41,13 @@ public interface UserMapper {
         @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
         @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
         @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
-        @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER),
-        @Result(column="token", property="token", jdbcType=JdbcType.VARCHAR)
+        @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER)
     })
     UserDomain selectByPrimaryKey(String id);
 
     @Select({
         "select",
-        "id, studentId, username, password, grade, quota, borrowed, credit, token",
+        "id, studentId, username, password, grade, quota, borrowed, credit",
         "from user"
     })
     @Results({
@@ -60,7 +59,6 @@ public interface UserMapper {
         @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
         @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
         @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER),
-        @Result(column="token", property="token", jdbcType=JdbcType.VARCHAR)
     })
     List<UserDomain> selectAll();
 
@@ -72,7 +70,6 @@ public interface UserMapper {
           "quota = #{quota,jdbcType=INTEGER},",
           "borrowed = #{borrowed,jdbcType=INTEGER},",
           "credit = #{credit,jdbcType=INTEGER},",
-          "token = #{token,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(UserDomain record);
