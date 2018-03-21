@@ -23,8 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author: ksewen
  * @create: 2018-02-24 16:21
  **/
-@EnableSwagger2
-@EnableAspectJAutoProxy
+
 @SpringBootApplication
 @MapperScan("com.enokb.librarian.mapper")
 public class Application {

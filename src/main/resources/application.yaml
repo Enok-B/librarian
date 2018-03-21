@@ -12,9 +12,9 @@ spring:
 # JWT
 jwt:
   header: Authorization
-  secret: mySecret
+  secret: KKKsewen77Enok
   expiration: 604800
-  tokenHead: "Wower "
+  tokenHead: "Rabbit "
   route:
     authentication:
       path: auth
