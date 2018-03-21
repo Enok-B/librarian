@@ -15,11 +15,11 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     private UserExtMapper userExtMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
-        UserDomain user = userExtMapper.loginByStudentId(studentId);
+    public UserDetails loadUserByUsername(String identity) throws UsernameNotFoundException {
+        UserDomain user = userExtMapper.loginByIdentity(identity);
 
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", studentId));
+            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", identity));
         } else {
             return JwtUserFactory.create(user);
         }

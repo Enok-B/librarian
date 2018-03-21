@@ -10,7 +10,7 @@ public interface UserExtMapper {
 
     @Select({
             "select",
-            "id, studentId, username, password, grade, quota, borrowed, credit",
+            "id, identity, username, password, grade, quota, borrowed, credit",
             "from user",
             "where username = #{username,jdbcType=VARCHAR}"
     })
@@ -18,23 +18,23 @@ public interface UserExtMapper {
 
     @Select({
             "select",
-            "id, studentId, username, password, grade, quota, borrowed, credit",
+            "id, identity, username, password, grade, quota, borrowed, credit",
             "from user",
-            "where studentId = #{studentId,jdbcType=VARCHAR}"
+            "where identity = #{identity,jdbcType=VARCHAR}"
     })
-    UserDomain selectByStudentId(String studentId);
+    UserDomain selectByIdentity(String identity);
 
     @Select({
             "select",
-            " u.id, u.studentId, u.username, u.password, u.grade, u.quota, u.borrowed, u.credit, r.id, r.name",
+            " u.id, u.identity, u.username, u.password, u.grade, u.quota, u.borrowed, u.credit, r.id, r.name",
             " from user as u",
             " LEFT JOIN role_user as sru on u.id = sru.userId",
             " LEFT JOIN role as r on sru.roleId = r.id",
-            "where studentId = #{studentId,jdbcType=VARCHAR}"
+            "where identity = #{identity,jdbcType=VARCHAR}"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.VARCHAR, id = true),
-            @Result(column = "studentId", property = "studentid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "identity", property = "identity", jdbcType = JdbcType.VARCHAR),
             @Result(column = "username", property = "username", jdbcType = JdbcType.VARCHAR),
             @Result(column = "password", property = "password", jdbcType = JdbcType.VARCHAR),
             @Result(column = "grade", property = "grade", jdbcType = JdbcType.VARCHAR),
@@ -43,5 +43,5 @@ public interface UserExtMapper {
             @Result(column = "credit", property = "credit", jdbcType = JdbcType.INTEGER),
             @Result(property = "roles", column = "id", many = @Many(select = "com.enokb.librarian.mapper.RoleExtMapper.selectRolesByUserId"))
     })
-    UserDomain loginByStudentId(String studentId);
+    UserDomain loginByIdentity(String identity);
 }

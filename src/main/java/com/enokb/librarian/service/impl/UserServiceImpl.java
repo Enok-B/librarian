@@ -44,8 +44,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional
     public boolean newUser(UserRegisterModel userDto, int credit, int quota, UserRoles role) {
-        if (userExtMapper.selectByStudentId(userDto.getStudentId()) != null) {
-            throw new UserExistException("studentid:" + userDto.getStudentId());
+        if (userExtMapper.selectByIdentity(userDto.getIdentity()) != null) {
+            throw new UserExistException("studentid:" + userDto.getIdentity());
         }
 
         UserDomain userDomain = UserDomain.newBuilder()
@@ -56,7 +56,7 @@ public class UserServiceImpl implements IUserService {
                 .credit(credit)
                 .grade(userDto.getGrade())
                 .quota(quota)
-                .studentid(userDto.getStudentId())
+                .identity(userDto.getIdentity())
                 .build();
        return userMapper.insert(userDomain) ==1
                && roleUserMapper.insert(RoleUserDomain.newBuilder()

@@ -9,7 +9,7 @@ package com.enokb.librarian.model;
 
 public class UserRegisterModel {
 
-    private String studentId;
+    private String identity;
 
     private String username;
 
@@ -21,7 +21,7 @@ public class UserRegisterModel {
     }
 
     private UserRegisterModel(Builder builder) {
-        setStudentId(builder.studentId);
+        setIdentity(builder.identity);
         setUsername(builder.username);
         setPassword(builder.password);
         setGrade(builder.grade);
@@ -33,19 +33,19 @@ public class UserRegisterModel {
 
     public static Builder newBuilder(UserRegisterModel copy) {
         Builder builder = new Builder();
-        builder.studentId = copy.getStudentId();
+        builder.identity = copy.getIdentity();
         builder.username = copy.getUsername();
         builder.password = copy.getPassword();
         builder.grade = copy.getGrade();
         return builder;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     public String getUsername() {
@@ -74,7 +74,7 @@ public class UserRegisterModel {
 
 
     public static final class Builder {
-        private String studentId;
+        private String identity;
         private String username;
         private String password;
         private String grade;
@@ -82,8 +82,8 @@ public class UserRegisterModel {
         private Builder() {
         }
 
-        public Builder studentId(String val) {
-            studentId = val;
+        public Builder identity(String val) {
+            identity = val;
             return this;
         }
 

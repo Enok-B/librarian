@@ -2,6 +2,8 @@ package com.enokb.librarian.controller;
 
 import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.dto.ResponseDto;
+import com.enokb.librarian.dto.auth.LoginDto;
+import com.enokb.librarian.dto.auth.RegisterDto;
 import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.IAuthService;
@@ -34,8 +36,7 @@ public class AuthController {
 
     @ApiOperation(value = "注册用户", produces = "application/json")
     @PostMapping("/register")
-    //FIXME: 返回boolean会报json转换错误
-    public ResponseEntity<ResponseDto> register(@Valid @RequestBody UserDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -45,11 +46,11 @@ public class AuthController {
 
     @ApiOperation(value = "登录", produces = "application/json")
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@Valid @RequestBody UserDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> login(@Valid @RequestBody LoginDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAuthService
-                .login(request.getStudentId(), request.getPassword())), HttpStatus.OK);
+                .login(request.getIdentity(), request.getPassword())), HttpStatus.OK);
     }
 }

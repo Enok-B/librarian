@@ -16,11 +16,11 @@ public interface UserMapper {
     int deleteByPrimaryKey(String id);
 
     @Insert({
-        "insert into user (id, studentId, ",
+        "insert into user (id, identity, ",
         "username, password, ",
         "grade, quota, borrowed, ",
         "credit)",
-        "values (#{id,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, ",
         "#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
         "#{grade,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrowed,jdbcType=INTEGER}, ",
         "#{credit,jdbcType=INTEGER})"
@@ -29,13 +29,13 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, studentId, username, password, grade, quota, borrowed, credit",
+        "id, identity, username, password, grade, quota, borrowed, credit",
         "from user",
         "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
-        @Result(column="studentId", property="studentid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
@@ -47,12 +47,12 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, studentId, username, password, grade, quota, borrowed, credit",
+        "id, identity, username, password, grade, quota, borrowed, credit",
         "from user"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
-        @Result(column="studentId", property="studentid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
@@ -64,7 +64,7 @@ public interface UserMapper {
 
     @Update({
         "update user",
-        "set studentId = #{studentid,jdbcType=VARCHAR},",
+        "set identity = #{identity,jdbcType=VARCHAR},",
           "username = #{username,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
           "quota = #{quota,jdbcType=INTEGER},",

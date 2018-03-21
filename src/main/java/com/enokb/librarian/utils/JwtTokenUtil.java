@@ -102,8 +102,8 @@ public class JwtTokenUtil implements Serializable {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         JwtUserModel user = (JwtUserModel) userDetails;
-        final String studentId = getUsernameFromToken(token);
-        return (studentId.equals(user.getUsername())
+        final String identity = getUsernameFromToken(token);
+        return (identity.equals(user.getUsername())
                         && !isTokenExpired(token));
     }
 }

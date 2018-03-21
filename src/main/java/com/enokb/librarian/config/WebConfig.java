@@ -2,6 +2,7 @@ package com.enokb.librarian.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -26,6 +27,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         AntPathMatcher pathMatcher = new AntPathMatcher();
         pathMatcher.setCaseSensitive(false);
         configurer.setPathMatcher(pathMatcher);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 
     @Bean

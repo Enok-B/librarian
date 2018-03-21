@@ -5,7 +5,7 @@ import java.util.List;
 public class UserDomain {
     private String id;
 
-    private String studentid;
+    private String identity;
 
     private String username;
 
@@ -28,7 +28,7 @@ public class UserDomain {
 
     private UserDomain(Builder builder) {
         setId(builder.id);
-        setStudentid(builder.studentid);
+        setIdentity(builder.identity);
         setUsername(builder.username);
         setPassword(builder.password);
         setGrade(builder.grade);
@@ -46,7 +46,7 @@ public class UserDomain {
     public static Builder newBuilder(UserDomain copy) {
         Builder builder = new Builder();
         builder.id = copy.getId();
-        builder.studentid = copy.getStudentid();
+        builder.identity = copy.getIdentity();
         builder.username = copy.getUsername();
         builder.password = copy.getPassword();
         builder.grade = copy.getGrade();
@@ -66,12 +66,12 @@ public class UserDomain {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setIdentity(String identity) {
+        this.identity = identity == null ? null : identity.trim();
     }
 
     public String getUsername() {
@@ -141,7 +141,7 @@ public class UserDomain {
 
     public static final class Builder {
         private String id;
-        private String studentid;
+        private String identity;
         private String username;
         private String password;
         private String grade;
@@ -160,8 +160,8 @@ public class UserDomain {
             return this;
         }
 
-        public Builder studentid(String val) {
-            studentid = val;
+        public Builder identity(String val) {
+            identity = val;
             return this;
         }
 
