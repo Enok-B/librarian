@@ -21,7 +21,7 @@ public class HelloController {
 
     @ApiOperation(value = "首页", produces = "application/json")
     @GetMapping
-    public ResponseEntity<ResponseDto<String>> welCome() {
+    public ResponseEntity<ResponseDto<String>> welcome() {
         return new ResponseEntity<ResponseDto<String>>(new ResponseDto<>("Welcome from librarian @Enok")
                 , HttpStatus.OK);
     }

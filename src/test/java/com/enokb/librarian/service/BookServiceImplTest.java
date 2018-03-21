@@ -1,14 +1,14 @@
 package com.enokb.librarian.service;
 
-import com.enokb.enums.BookType;
 import com.enokb.librarian.domain.BookDomain;
+import com.enokb.librarian.enums.BookType;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
+import com.enokb.librarian.mapper.BookExtMapper;
 import com.enokb.librarian.mapper.BookMapper;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.impl.BookServiceImpl;
 import org.junit.Assert;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
@@ -28,14 +27,14 @@ import static org.mockito.BDDMockito.given;
 public class BookServiceImplTest {
 
     @MockBean
-    private BookMapper bookMapper;
+    private BookExtMapper bookExtMapper;
 
     @Autowired
     private BookServiceImpl bookService;
 
     @Before
     public void setUp() throws Exception {
-        given(bookMapper.searchBook(ArgumentMatchers.notNull())).willReturn(
+        given(bookExtMapper.searchBook(ArgumentMatchers.notNull())).willReturn(
                         mockSearchResult());
     }
 
@@ -54,12 +53,12 @@ public class BookServiceImplTest {
                 .isbn("0001")
                 .author("孙煜冰")
                 .press("热干面出版社")
-                .state(1).build());
+                .type(1).build());
         bookDomains.add(BookDomain.newBuilder()
                 .isbn("0002")
                 .author("林一")
                 .press("周黑鸭出版社")
-                .state(2).build());
+                .type(2).build());
         return bookDomains;
     }
 }

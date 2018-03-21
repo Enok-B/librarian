@@ -3,54 +3,74 @@ package com.enokb.librarian.mapper;
 import com.enokb.librarian.domain.UserDomain;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface UserMapper {
     @Delete({
         "delete from user",
-        "where user_Id = #{userId,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteById(Integer userId);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
-        "insert into user (user_Id, student_Id, ",
-        "name, passwoed, ",
-        "group, quota, borrwing, ",
+        "insert into user (id, identity, ",
+        "username, password, ",
+        "grade, quota, borrowed, ",
         "credit)",
-        "values (#{userId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, ",
-        "#{name,jdbcType=VARCHAR}, #{passwoed,jdbcType=VARCHAR}, ",
-        "#{group,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrwing,jdbcType=INTEGER}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, ",
+        "#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{grade,jdbcType=VARCHAR}, #{quota,jdbcType=INTEGER}, #{borrowed,jdbcType=INTEGER}, ",
         "#{credit,jdbcType=INTEGER})"
     })
     int insert(UserDomain record);
 
     @Select({
         "select",
-        "user_Id, student_Id, name, passwoed, group, quota, borrwing, credit",
+        "id, identity, username, password, grade, quota, borrowed, credit",
         "from user",
-        "where user_Id = #{userId,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="user_Id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="student_Id", property="studentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="passwoed", property="passwoed", jdbcType=JdbcType.VARCHAR),
-        @Result(column="group", property="group", jdbcType=JdbcType.VARCHAR),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
         @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
-        @Result(column="borrwing", property="borrwing", jdbcType=JdbcType.INTEGER),
+        @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
         @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER)
     })
-    UserDomain selectById(Integer userId);
+    UserDomain selectByPrimaryKey(String id);
+
+    @Select({
+        "select",
+        "id, identity, username, password, grade, quota, borrowed, credit",
+        "from user"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="grade", property="grade", jdbcType=JdbcType.VARCHAR),
+        @Result(column="quota", property="quota", jdbcType=JdbcType.INTEGER),
+        @Result(column="borrowed", property="borrowed", jdbcType=JdbcType.INTEGER),
+        @Result(column="credit", property="credit", jdbcType=JdbcType.INTEGER),
+    })
+    List<UserDomain> selectAll();
 
     @Update({
         "update user",
-        "set student_Id = #{studentId,jdbcType=INTEGER},",
-          "name = #{name,jdbcType=VARCHAR},",
-          "passwoed = #{passwoed,jdbcType=VARCHAR},",
-          "group = #{group,jdbcType=VARCHAR},",
+        "set identity = #{identity,jdbcType=VARCHAR},",
+          "username = #{username,jdbcType=VARCHAR},",
+          "password = #{password,jdbcType=VARCHAR},",
           "quota = #{quota,jdbcType=INTEGER},",
-          "borrwing = #{borrwing,jdbcType=INTEGER},",
-          "credit = #{credit,jdbcType=INTEGER}",
-        "where user_Id = #{userId,jdbcType=INTEGER}"
+          "borrowed = #{borrowed,jdbcType=INTEGER},",
+          "credit = #{credit,jdbcType=INTEGER},",
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int updateById(UserDomain record);
+    int updateByPrimaryKey(UserDomain record);
 }

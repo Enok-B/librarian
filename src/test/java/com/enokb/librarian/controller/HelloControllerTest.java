@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @create: 2018-02-25 14:42
  **/
 @RunWith(SpringRunner.class)
-@WebMvcTest(HelloController.class)
+@WebMvcTest(value = HelloController.class, secure = false)
 public class HelloControllerTest {
 
     @Autowired

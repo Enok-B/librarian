@@ -1,6 +1,5 @@
 package com.enokb.librarian.controller;
 
-import com.enokb.librarian.domain.BookDomain;
 import com.enokb.librarian.dto.book.BookSearchDto;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
 import com.enokb.librarian.model.BookSearchModel;
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

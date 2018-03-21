@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @Description: TODO(这里用一句话描述这个类的作用)
  * @date 2017年12月22日
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @ControllerAdvice
 public class AppWideExceptionHandler {
 

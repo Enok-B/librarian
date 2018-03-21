@@ -3,49 +3,66 @@ package com.enokb.librarian.mapper;
 import com.enokb.librarian.domain.CheckoutlogDomain;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public interface CheckoutlogMapper {
-
     @Delete({
         "delete from checkoutlog",
-        "where Id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteById(Integer id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
-        "insert into checkoutlog (Id, userId, ",
-        "bookId, adminId, ",
-        "date, state_flag)",
-        "values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, ",
-        "#{bookid,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, ",
-        "#{date,jdbcType=DATE}, #{stateFlag,jdbcType=INTEGER})"
+        "insert into checkoutlog (id, userId, ",
+        "bookId, operator, ",
+        "date, status)",
+        "values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, ",
+        "#{bookid,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
+        "#{date,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT})"
     })
     int insert(CheckoutlogDomain record);
 
     @Select({
         "select",
-        "Id, userId, bookId, adminId, date, state_flag",
+        "id, userId, bookId, operator, date, status",
         "from checkoutlog",
-        "where Id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="userId", property="userid", jdbcType=JdbcType.INTEGER),
-        @Result(column="bookId", property="bookid", jdbcType=JdbcType.INTEGER),
-        @Result(column="adminId", property="adminid", jdbcType=JdbcType.INTEGER),
-        @Result(column="date", property="date", jdbcType=JdbcType.DATE),
-        @Result(column="state_flag", property="stateFlag", jdbcType=JdbcType.INTEGER)
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="userId", property="userid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="bookId", property="bookid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.BIT)
     })
-    CheckoutlogDomain selectById(Integer id);
+    CheckoutlogDomain selectByPrimaryKey(String id);
+
+    @Select({
+        "select",
+        "id, userId, bookId, operator, date, status",
+        "from checkoutlog"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="userId", property="userid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="bookId", property="bookid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.BIT)
+    })
+    List<CheckoutlogDomain> selectAll();
 
     @Update({
         "update checkoutlog",
-        "set userId = #{userid,jdbcType=INTEGER},",
-          "bookId = #{bookid,jdbcType=INTEGER},",
-          "adminId = #{adminid,jdbcType=INTEGER},",
-          "date = #{date,jdbcType=DATE},",
-          "state_flag = #{stateFlag,jdbcType=INTEGER}",
-        "where Id = #{id,jdbcType=INTEGER}"
+        "set userId = #{userid,jdbcType=VARCHAR},",
+          "bookId = #{bookid,jdbcType=VARCHAR},",
+          "operator = #{operator,jdbcType=VARCHAR},",
+          "date = #{date,jdbcType=TIMESTAMP},",
+          "status = #{status,jdbcType=BIT}",
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int updateById(CheckoutlogDomain record);
+    int updateByPrimaryKey(CheckoutlogDomain record);
 }
