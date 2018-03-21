@@ -42,18 +42,21 @@ public class AuthServiceImpl implements IAuthService {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+    private static final int CREDIT = 100;
+    private static final int QUOTA = 3;
+
     @Override
     public boolean register(UserRegisterModel registerModel) {
-        return iUserService.newUser(registerModel, 100, 3, UserRoles.USER);
+        return iUserService.newUser(registerModel, CREDIT, QUOTA, UserRoles.USER);
     }
 
     @Override
-    public String login(String studentId, String password) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(studentId, password);
+    public String login(String identity, String password) {
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(identity, password);
         final Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(studentId);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(identity);
         final String token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
