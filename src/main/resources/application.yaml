@@ -14,7 +14,7 @@ jwt:
   header: Authorization
   secret: mySecret
   expiration: 604800
-  tokenHead: "Bearer "
+  tokenHead: "Wower "
   route:
     authentication:
       path: auth

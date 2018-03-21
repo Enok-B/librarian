@@ -3,12 +3,14 @@ package com.enokb.librarian.service.impl;
 import com.enokb.librarian.config.exception.UserExistException;
 import com.enokb.librarian.domain.RoleUserDomain;
 import com.enokb.librarian.domain.UserDomain;
+import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.enums.UserRoles;
 import com.enokb.librarian.mapper.RoleUserMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.mapper.UserMapper;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.IUserService;
+import com.enokb.librarian.utils.BeanMapperUtil;
 import com.enokb.librarian.utils.IDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -63,5 +65,11 @@ public class UserServiceImpl implements IUserService {
                 .id(IDUtil.newId())
                 .roleid(role.getId())
                 .userid(userDomain.getId()).build()) == 1;
+    }
+
+    @Override
+    public UserDto userInfo(String identity) {
+        UserDomain userDomain = userExtMapper.loginByIdentity(identity);
+        return BeanMapperUtil.createAndCopyProperties(userDomain, UserDto.class);
     }
 }

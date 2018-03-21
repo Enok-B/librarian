@@ -19,8 +19,6 @@ public class UserDomain {
 
     private Integer credit;
 
-    private String token;
-
     private List<RoleDomain> roles;
 
     public UserDomain() {
@@ -35,7 +33,6 @@ public class UserDomain {
         setQuota(builder.quota);
         setBorrowed(builder.borrowed);
         setCredit(builder.credit);
-        setToken(builder.token);
         setRoles(builder.roles);
     }
 
@@ -53,7 +50,6 @@ public class UserDomain {
         builder.quota = copy.getQuota();
         builder.borrowed = copy.getBorrowed();
         builder.credit = copy.getCredit();
-        builder.token = copy.getToken();
         builder.roles = copy.getRoles();
         return builder;
     }
@@ -120,14 +116,6 @@ public class UserDomain {
 
     public void setCredit(Integer credit) {
         this.credit = credit;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token == null ? null : token.trim();
     }
 
     public List<RoleDomain> getRoles() {

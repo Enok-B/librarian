@@ -1,7 +1,11 @@
 package com.enokb.librarian.dto.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookSearchResultDto {
     private String isbn;
     private String name;

@@ -1,12 +1,17 @@
 package com.enokb.librarian.dto.user;
 
+import com.enokb.librarian.domain.RoleDomain;
 import com.enokb.librarian.model.BaseModel;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
+@JsonIgnoreProperties(value = {"password"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends BaseModel {
 
-    private String studentId;
+    private String identity;
 
     private String username;
 
@@ -16,24 +21,18 @@ public class UserDto extends BaseModel {
 
     private Integer quota;
 
+    private Integer borrowed;
+
     private Integer credit;
 
-    private List<String> roles;
+    private List<RoleDomain> roles;
 
-    public List<String> getRoles() {
-        return roles;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     public String getUsername() {
@@ -68,6 +67,14 @@ public class UserDto extends BaseModel {
         this.quota = quota;
     }
 
+    public Integer getBorrowed() {
+        return borrowed;
+    }
+
+    public void setBorrowed(Integer borrowed) {
+        this.borrowed = borrowed;
+    }
+
     public Integer getCredit() {
         return credit;
     }
@@ -76,14 +83,23 @@ public class UserDto extends BaseModel {
         this.credit = credit;
     }
 
+    public List<RoleDomain> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDomain> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
-                "studentId=" + studentId +
+                "identity='" + identity + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", grade='" + grade + '\'' +
                 ", quota=" + quota +
+                ", borrowed=" + borrowed +
                 ", credit=" + credit +
                 ", roles=" + roles +
                 '}';
