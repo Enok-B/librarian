@@ -12,4 +12,5 @@ script:
 addons:
   ssh_known_hosts: 39.108.158.105
 after_success:
+- scp ./build/libs/librarian-1.0-SNAPSHOT.jar root@39.108.158.105:/root/librarian
 - ssh root@39.108.158.105 "~/librarian/librarian_deploy.sh"
