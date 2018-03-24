@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/book")
@@ -33,5 +34,12 @@ public class BookController {
         BookSearchModel bookSearchModel = new BookSearchModel();
         BeanUtils.copyProperties(request, bookSearchModel);
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iBookService.searchBook(bookSearchModel)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "书籍详情", produces = "application/json")
+    @GetMapping("/detail")
+    public ResponseEntity<ResponseDto> detail(@NotNull(message = "{book.isbn.null}") @RequestParam String isbn) {
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iBookService
+                .bookDetail(isbn)), HttpStatus.OK);
     }
 }
