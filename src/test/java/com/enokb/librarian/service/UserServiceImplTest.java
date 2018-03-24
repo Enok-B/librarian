@@ -1,11 +1,9 @@
 package com.enokb.librarian.service;
 
-import com.enokb.librarian.mapper.RoleUserMapper;
+import com.enokb.librarian.generate.mapper.RoleUserMapper;
+import com.enokb.librarian.generate.mapper.UserMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
-import com.enokb.librarian.mapper.UserMapper;
-import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.impl.UserServiceImpl;
-import com.enokb.librarian.utils.JwtTokenUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -16,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)

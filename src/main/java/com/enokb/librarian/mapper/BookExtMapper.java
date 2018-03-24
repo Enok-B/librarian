@@ -1,6 +1,6 @@
 package com.enokb.librarian.mapper;
 
-import com.enokb.librarian.domain.BookDomain;
+import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.model.BookSearchModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -24,5 +24,5 @@ public interface BookExtMapper {
             "<if test='condition.type != null and condition.type != \"\"'>AND type=#{condition.type}</if> " +
             "<if test='condition.author != null and condition.author != \"\"'>AND LOCATE(#{condition.author}, `author`)>0</if> " +
             "<if test='condition.press != null and condition.press != \"\"'>AND LOCATE(#{condition.press}, `press`)>0</if> </script>")
-    List<BookDomain> searchBook(@Param("condition") BookSearchModel bookSearchModel);
+    List<Book> searchBook(@Param("condition") BookSearchModel bookSearchModel);
 }

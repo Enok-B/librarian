@@ -1,7 +1,11 @@
 package com.enokb.librarian.mapper;
 
 import com.enokb.librarian.domain.UserDomain;
-import org.apache.ibatis.annotations.*;
+import com.enokb.librarian.generate.model.User;
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +18,7 @@ public interface UserExtMapper {
             "from user",
             "where username = #{username,jdbcType=VARCHAR}"
     })
-    UserDomain selectByName(String username);
+    User selectByName(String username);
 
     @Select({
             "select",
@@ -22,7 +26,7 @@ public interface UserExtMapper {
             "from user",
             "where identity = #{identity,jdbcType=VARCHAR}"
     })
-    UserDomain selectByIdentity(String identity);
+    User selectByIdentity(String identity);
 
     @Select({
             "select",

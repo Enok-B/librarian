@@ -1,7 +1,7 @@
 package com.enokb.librarian.service.impl;
 
-import com.enokb.librarian.domain.BookDomain;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
+import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.mapper.BookExtMapper;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.IBookService;
@@ -21,7 +21,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public List<BookSearchResultDto> searchBook(BookSearchModel bookSearchModel) {
-        List<BookDomain> bookDomains = bookExtMapper.searchBook(bookSearchModel);
+        List<Book> bookDomains = bookExtMapper.searchBook(bookSearchModel);
         if (ListUtil.isNotEmpty(bookDomains)) {
             List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
             bookDomains.forEach(domain -> {

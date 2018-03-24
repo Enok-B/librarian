@@ -1,6 +1,6 @@
 package com.enokb.librarian.mapper;
 
-import com.enokb.librarian.domain.RoleDomain;
+import com.enokb.librarian.generate.model.Role;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -13,5 +13,5 @@ public interface RoleExtMapper {
             " FROM role as r",
             " INNER JOIN role_user as ru on r.id = ru.roleId",
             " WHERE ru.userId =#{userId}"})
-    List<RoleDomain> selectRolesByUserId(@Param("userId") String userId);
+    List<Role> selectRolesByUserId(@Param("userId") String userId);
 }

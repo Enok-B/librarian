@@ -7,4 +7,5 @@ import com.enokb.librarian.model.UserRegisterModel;
 public interface IUserService {
     boolean newUser(UserRegisterModel userDto, int credit, int quota, UserRoles role);
     UserDto userInfo(String identity);
+    boolean newAdmin(UserRegisterModel userDto);
 }

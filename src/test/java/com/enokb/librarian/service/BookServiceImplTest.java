@@ -1,22 +1,22 @@
 package com.enokb.librarian.service;
 
-import com.enokb.librarian.domain.BookDomain;
-import com.enokb.librarian.enums.BookType;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
+import com.enokb.librarian.enums.BookType;
+import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.mapper.BookExtMapper;
-import com.enokb.librarian.mapper.BookMapper;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.impl.BookServiceImpl;
 import org.junit.Assert;
-import org.mockito.ArgumentMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,18 +47,12 @@ public class BookServiceImplTest {
         Assert.assertEquals("林一", result.get(1).getAuthor());
     }
 
-    private List<BookDomain> mockSearchResult() {
-        List<BookDomain> bookDomains = new ArrayList<>();
-        bookDomains.add(BookDomain.newBuilder()
-                .isbn("0001")
-                .author("孙煜冰")
-                .press("热干面出版社")
-                .type(1).build());
-        bookDomains.add(BookDomain.newBuilder()
-                .isbn("0002")
-                .author("林一")
-                .press("周黑鸭出版社")
-                .type(2).build());
+    private List<Book> mockSearchResult() {
+        List<Book> bookDomains = new ArrayList<>();
+        bookDomains.add(new Book("0001", "book1", new BigDecimal(100),
+                1, "孙煜冰", "热干面出版社"));
+        bookDomains.add(new Book("0002", "book2", new BigDecimal(200),
+                1, "林一", "周黑鸭出版社"));
         return bookDomains;
     }
 }

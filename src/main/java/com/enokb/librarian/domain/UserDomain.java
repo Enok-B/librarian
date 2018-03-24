@@ -1,5 +1,7 @@
 package com.enokb.librarian.domain;
 
+import com.enokb.librarian.generate.model.Role;
+
 import java.util.List;
 
 public class UserDomain {
@@ -19,7 +21,7 @@ public class UserDomain {
 
     private Integer credit;
 
-    private List<RoleDomain> roles;
+    private List<Role> roles;
 
     public UserDomain() {
     }
@@ -118,11 +120,11 @@ public class UserDomain {
         this.credit = credit;
     }
 
-    public List<RoleDomain> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleDomain> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -138,7 +140,7 @@ public class UserDomain {
         private Integer credit;
         private Boolean role;
         private String token;
-        private List<RoleDomain> roles;
+        private List<Role> roles;
 
         private Builder() {
         }
@@ -193,7 +195,7 @@ public class UserDomain {
             return this;
         }
 
-        public Builder roles(List<RoleDomain> val) {
+        public Builder roles(List<Role> val) {
             roles = val;
             return this;
         }

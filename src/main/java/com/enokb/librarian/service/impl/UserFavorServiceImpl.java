@@ -1,6 +1,5 @@
 package com.enokb.librarian.service.impl;
 
-import com.enokb.librarian.generate.mapper.UserFavorMapper;
 import com.enokb.librarian.generate.model.UserFavor;
 import com.enokb.librarian.mapper.UserFavorExtMapper;
 import com.enokb.librarian.service.IUserFavorService;
