@@ -2,6 +2,8 @@ package com.enokb.librarian.service;
 
 import com.enokb.librarian.dto.book.BookSearchResultDto;
 import com.enokb.librarian.enums.BookType;
+import com.enokb.librarian.generate.mapper.BookMapper;
+import com.enokb.librarian.generate.mapper.BookitemMapper;
 import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.mapper.BookExtMapper;
 import com.enokb.librarian.model.BookSearchModel;
@@ -28,6 +30,12 @@ public class BookServiceImplTest {
 
     @MockBean
     private BookExtMapper bookExtMapper;
+
+    @MockBean
+    private BookMapper bookMapper;
+
+    @MockBean
+    private BookitemMapper bookitemMapper;
 
     @Autowired
     private BookServiceImpl bookService;

@@ -2,8 +2,12 @@ package com.enokb.librarian.controller;
 
 import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.dto.ResponseDto;
-import com.enokb.librarian.dto.auth.RegisterDto;
+import com.enokb.librarian.dto.admin.AdminAddDto;
+import com.enokb.librarian.dto.admin.BookEntryDto;
+import com.enokb.librarian.model.BookEntryModel;
 import com.enokb.librarian.model.UserRegisterModel;
+import com.enokb.librarian.security.Authentication;
+import com.enokb.librarian.service.IBookService;
 import com.enokb.librarian.service.IUserService;
 import com.enokb.librarian.utils.BeanMapperUtil;
 import io.swagger.annotations.ApiOperation;
@@ -25,15 +29,32 @@ import javax.validation.Valid;
 public class AdminController {
 
     @Autowired
+    private Authentication authentication;
+
+    @Autowired
     private IUserService iUserService;
+
+    @Autowired
+    private IBookService iBookService;
 
     @ApiOperation(value = "新增管理员", produces = "application/json")
     @PostMapping("/add")
-    public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> addAdmin(@Valid @RequestBody AdminAddDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService.newAdmin(BeanMapperUtil
                 .createAndCopyProperties(request, UserRegisterModel.class))), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "录入图书", produces = "application/json")
+    @PostMapping("/entryBook")
+    public ResponseEntity<ResponseDto> entryBook(@Valid @RequestBody BookEntryDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iBookService.entryBook(BeanMapperUtil
+                        .createAndCopyProperties(request, BookEntryModel.class), authentication.getUserId(),
+                request.getArea(), request.getStatus())), HttpStatus.OK);
     }
 }
