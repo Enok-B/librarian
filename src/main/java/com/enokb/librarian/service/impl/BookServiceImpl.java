@@ -1,5 +1,6 @@
 package com.enokb.librarian.service.impl;
 
+import com.enokb.librarian.dto.book.BookItemResultDto;
 import com.enokb.librarian.dto.book.BookSearchResultDto;
 import com.enokb.librarian.generate.mapper.BookMapper;
 import com.enokb.librarian.generate.mapper.BookitemMapper;
@@ -15,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +37,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public List<BookSearchResultDto> searchBook(BookSearchModel bookSearchModel) {
         List<Book> bookDomains = bookExtMapper.searchBook(bookSearchModel);
-        if (ListUtil.isNotEmpty(bookDomains)) {
+        if (!CollectionUtils.isEmpty(bookDomains)) {
             List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
             bookDomains.forEach(domain -> {
                 BookSearchResultDto bookSearchResultDto = new BookSearchResultDto();
@@ -48,11 +50,22 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
+    public List<BookItemResultDto> bookDetail(String isbn) {
+        List<Bookitem> source = bookExtMapper.bookDetail(isbn);
+        return ListUtil.copyListProperties(source, new ArrayList<>(), BookItemResultDto.class);
+    }
+
+    @Override
     @Transactional
     public boolean entryBook(BookEntryModel book, String userId, int area, int status) {
-        return bookMapper.insert(new Book(book.getIsbn().replaceAll("-", ""), book.getName(),
-                book.getPrice(), book.getType(), book.getAuthor(), book.getPress())) ==1 &&
+        Book bookDomain = new Book(book.getIsbn(), book.getName(),
+                book.getPrice(), book.getType(), book.getAuthor(), book.getPress());
+        int result = bookExtMapper.insertIfNotExistBook(bookDomain);
+        if (result == 0) {
+            result = bookMapper.updateByPrimaryKey(bookDomain);
+        }
+        return  result == 1 &&
                 bookitemMapper.insert(new Bookitem(IDUtil.newId(), book.getIsbn(), area,
-                        status, new Date(), null, null, true, userId)) ==1;
+                        status, new Date(), null, null, true, userId)) == 1;
     }
 }

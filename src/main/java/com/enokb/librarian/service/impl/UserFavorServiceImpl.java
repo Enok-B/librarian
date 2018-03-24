@@ -1,11 +1,17 @@
 package com.enokb.librarian.service.impl;
 
+import com.enokb.librarian.dto.book.BookItemResultDto;
+import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.UserFavor;
 import com.enokb.librarian.mapper.UserFavorExtMapper;
 import com.enokb.librarian.service.IUserFavorService;
 import com.enokb.librarian.utils.IDUtil;
+import com.enokb.librarian.utils.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserFavorServiceImpl implements IUserFavorService {
@@ -23,5 +29,11 @@ public class UserFavorServiceImpl implements IUserFavorService {
             return true;
         }
         return userFavorExtMapper.updateRecord(userId, bookId) > 0;
+    }
+
+    @Override
+    public List<BookItemResultDto> listFavor(String userId) {
+        List<Bookitem> list = userFavorExtMapper.selectByUserId(userId);
+        return ListUtil.copyListProperties(list, new ArrayList<>(), BookItemResultDto.class);
     }
 }
