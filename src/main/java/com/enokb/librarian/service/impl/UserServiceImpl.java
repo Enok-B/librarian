@@ -1,13 +1,14 @@
 package com.enokb.librarian.service.impl;
 
 import com.enokb.librarian.config.exception.UserExistException;
-import com.enokb.librarian.domain.RoleUserDomain;
 import com.enokb.librarian.domain.UserDomain;
 import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.enums.UserRoles;
-import com.enokb.librarian.mapper.RoleUserMapper;
+import com.enokb.librarian.generate.mapper.RoleUserMapper;
+import com.enokb.librarian.generate.mapper.UserMapper;
+import com.enokb.librarian.generate.model.RoleUser;
+import com.enokb.librarian.generate.model.User;
 import com.enokb.librarian.mapper.UserExtMapper;
-import com.enokb.librarian.mapper.UserMapper;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.IUserService;
 import com.enokb.librarian.utils.BeanMapperUtil;
@@ -47,29 +48,35 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     public boolean newUser(UserRegisterModel userDto, int credit, int quota, UserRoles role) {
         if (userExtMapper.selectByIdentity(userDto.getIdentity()) != null) {
-            throw new UserExistException("studentid:" + userDto.getIdentity());
+            throw new UserExistException("identity:" + userDto.getIdentity());
         }
 
-        UserDomain userDomain = UserDomain.newBuilder()
-                .id(IDUtil.newId())
-                .username(userDto.getUsername())
-                .password(encoder.encode(userDto.getPassword()))
-                .borrowed(0)
-                .credit(credit)
-                .grade(userDto.getGrade())
-                .quota(quota)
-                .identity(userDto.getIdentity())
-                .build();
+        User userDomain = new User(IDUtil.newId(), userDto.getIdentity(),
+                userDto.getUsername(), encoder.encode(userDto.getPassword()), userDto.getGrade(),
+                quota, 0, credit);
        return userMapper.insert(userDomain) ==1
-               && roleUserMapper.insert(RoleUserDomain.newBuilder()
-                .id(IDUtil.newId())
-                .roleid(role.getId())
-                .userid(userDomain.getId()).build()) == 1;
+               && roleUserMapper.insert(new RoleUser(IDUtil.newId(),
+               userDomain.getId(), role.getId())) == 1;
     }
 
     @Override
     public UserDto userInfo(String identity) {
         UserDomain userDomain = userExtMapper.loginByIdentity(identity);
         return BeanMapperUtil.createAndCopyProperties(userDomain, UserDto.class);
+    }
+
+    @Override
+    @Transactional
+    public boolean newAdmin(UserRegisterModel userDto) {
+        if (userExtMapper.selectByIdentity(userDto.getIdentity()) != null) {
+            throw new UserExistException("identity:" + userDto.getIdentity());
+        }
+        User userDomain = new User(IDUtil.newId(), userDto.getIdentity(),
+                userDto.getUsername(), encoder.encode(userDto.getPassword()), userDto.getGrade(),
+                0, 0, 0);
+
+        return userMapper.insert(userDomain) ==1
+                && roleUserMapper.insert(new RoleUser(IDUtil.newId(),
+                userDomain.getId(), UserRoles.ADMIN.getId())) == 1;
     }
 }

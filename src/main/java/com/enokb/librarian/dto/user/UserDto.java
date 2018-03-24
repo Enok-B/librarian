@@ -1,6 +1,6 @@
 package com.enokb.librarian.dto.user;
 
-import com.enokb.librarian.domain.RoleDomain;
+import com.enokb.librarian.generate.model.Role;
 import com.enokb.librarian.model.BaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,7 +25,7 @@ public class UserDto extends BaseModel {
 
     private Integer credit;
 
-    private List<RoleDomain> roles;
+    private List<Role> roles;
 
     public String getIdentity() {
         return identity;
@@ -83,11 +83,11 @@ public class UserDto extends BaseModel {
         this.credit = credit;
     }
 
-    public List<RoleDomain> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleDomain> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
