@@ -40,7 +40,7 @@ public class UserFavorController {
             throw new NeedAuthenticationException();
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserFavorService
-                .favorBook(userId, request.getId(),false)), HttpStatus.OK);
+                .favorBook(userId, request.getId(),request.isFavor())), HttpStatus.OK);
     }
 
 }
