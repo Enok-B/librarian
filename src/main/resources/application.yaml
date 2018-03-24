@@ -8,6 +8,9 @@ spring:
     username: enok
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 # JWT
 jwt:

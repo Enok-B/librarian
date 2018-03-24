@@ -1,11 +1,14 @@
 package com.enokb.librarian.mapper;
 
+import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.UserFavor;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface UserFavorExtMapper {
@@ -27,4 +30,11 @@ public interface UserFavorExtMapper {
     @Update("UPDATE user_favor SET isDel=0 WHERE " +
             "userId=#{userId} AND bookId=#{bookId}")
     int updateRecord(@Param("userId") String userId, @Param("bookId") String bookId);
+
+    @Select("SELECT id, isbn, area, status, loanDate, renewal " +
+            "FROM bookitem AS b " +
+            "WHERE id IN(" +
+            "SELECT distinct bookId FROM user_favor WHERE userId='9195c3e5b3f14f49862aa7676d4431ea' AND isDel=0 " +
+            ")")
+    List<Bookitem> selectByUserId(@Param("userId") String userId);
 }
