@@ -61,8 +61,9 @@ public enum BookType {
         this.name = name;
     }
 
+    // 有个sb要求从1开始，假开发，呵呵！！！
     public int getType() {
-        return type;
+        return type + 1;
     }
 
     public void setType(int type) {
