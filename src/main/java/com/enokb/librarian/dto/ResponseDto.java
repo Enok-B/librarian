@@ -1,5 +1,7 @@
 package com.enokb.librarian.dto;
 
+import com.enokb.librarian.enums.ResponseMsg;
+
 import java.util.Date;
 
 /**
@@ -16,6 +18,13 @@ public class ResponseDto<T> {
         this.serverTime = new Date();
     }
 
+    public ResponseDto(String msg, T data) {
+        this.msg = msg;
+        this.data = data;
+        this.serverTime = new Date();
+    }
+
+    private String msg;
     private T data;
     private Date serverTime;
 
@@ -35,6 +44,14 @@ public class ResponseDto<T> {
         this.serverTime = serverTime;
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public String toString() {
         return "ResponseDto{" +
@@ -48,6 +65,6 @@ public class ResponseDto<T> {
     }
 
     public static <T> ResponseDto<T> ok(T data) {
-        return new ResponseDto<>(data);
+        return new ResponseDto<>(ResponseMsg.OK.getMsg(), data);
     }
 }

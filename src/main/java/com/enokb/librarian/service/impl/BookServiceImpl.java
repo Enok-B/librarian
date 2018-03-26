@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,17 +37,19 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public List<BookSearchResultDto> searchBook(BookSearchModel bookSearchModel) {
+        bookSearchModel.setIsbn(StringUtils.isEmpty(bookSearchModel.getIsbn())
+                ? null : bookSearchModel.getIsbn().replaceAll("-", ""));
         List<Book> bookDomains = bookExtMapper.searchBook(bookSearchModel);
-        if (!CollectionUtils.isEmpty(bookDomains)) {
-            List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
-            bookDomains.forEach(domain -> {
-                BookSearchResultDto bookSearchResultDto = new BookSearchResultDto();
-                BeanUtils.copyProperties(domain, bookSearchResultDto);
-                bookSearchResultDtos.add(bookSearchResultDto);
-            });
-            return bookSearchResultDtos;
-        }
-        return null;
+//        if (!CollectionUtils.isEmpty(bookDomains)) {
+//            List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
+//            bookDomains.forEach(domain -> {
+//                BookSearchResultDto bookSearchResultDto = new BookSearchResultDto();
+//                BeanUtils.copyProperties(domain, bookSearchResultDto);
+//                bookSearchResultDtos.add(bookSearchResultDto);
+//            });
+//            return bookSearchResultDtos;
+//        }
+        return ListUtil.copyListProperties(bookDomains, new ArrayList<>(), BookSearchResultDto.class);
     }
 
     @Override
@@ -58,13 +61,13 @@ public class BookServiceImpl implements IBookService {
     @Override
     @Transactional
     public boolean entryBook(BookEntryModel book, String userId, int area, int status) {
-        Book bookDomain = new Book(book.getIsbn(), book.getName(),
+        Book bookDomain = new Book(book.getIsbn().replaceAll("-",""), book.getName(),
                 book.getPrice(), book.getType(), book.getAuthor(), book.getPress());
         int result = bookExtMapper.insertIfNotExistBook(bookDomain);
         if (result == 0) {
             result = bookMapper.updateByPrimaryKey(bookDomain);
         }
-        return  result == 1 &&
+        return result == 1 &&
                 bookitemMapper.insert(new Bookitem(IDUtil.newId(), book.getIsbn(), area,
                         status, new Date(), null, null, true, userId)) == 1;
     }

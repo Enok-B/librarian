@@ -53,7 +53,6 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
-        request.setIsbn(request.getIsbn().replaceAll("-", ""));
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iBookService.entryBook(BeanMapperUtil
                         .createAndCopyProperties(request, BookEntryModel.class), authentication.getUserId(),
                 request.getArea(), request.getStatus())), HttpStatus.OK);
