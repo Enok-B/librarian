@@ -1,6 +1,6 @@
 package com.enokb.librarian.dto.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.enokb.librarian.enums.BookType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ public class BookSearchResultDto {
     private String isbn;
     private String name;
     private BigDecimal price;
-    private Integer type;
+    private BookType type;
     private String author;
     private String press;
 
@@ -21,7 +21,7 @@ public class BookSearchResultDto {
         setIsbn(builder.isbn);
         setName(builder.name);
         setPrice(builder.price);
-        setType(builder.type);
+        setType(builder.type.getType());
         setAuthor(builder.author);
         setPress(builder.press);
     }
@@ -65,12 +65,12 @@ public class BookSearchResultDto {
         this.price = price;
     }
 
-    public Integer getType() {
+    public BookType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setType(int type) {
+        this.type = BookType.forType(type);
     }
 
     public String getAuthor() {
@@ -106,7 +106,7 @@ public class BookSearchResultDto {
         private String isbn;
         private String name;
         private BigDecimal price;
-        private Integer type;
+        private BookType type;
         private String author;
         private String press;
 
@@ -128,7 +128,7 @@ public class BookSearchResultDto {
             return this;
         }
 
-        public Builder type(Integer val) {
+        public Builder type(BookType val) {
             type = val;
             return this;
         }

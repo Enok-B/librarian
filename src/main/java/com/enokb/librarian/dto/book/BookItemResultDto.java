@@ -1,5 +1,6 @@
 package com.enokb.librarian.dto.book;
 
+import com.enokb.librarian.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ public class BookItemResultDto {
 
     private Integer area;
 
-    private Integer status;
+    private BookStatus status;
 
     private Date loandate;
 
@@ -42,12 +43,12 @@ public class BookItemResultDto {
         this.area = area;
     }
 
-    public Integer getStatus() {
+    public BookStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(int status) {
+        this.status = BookStatus.forStatus(status);
     }
 
     public Date getLoandate() {
