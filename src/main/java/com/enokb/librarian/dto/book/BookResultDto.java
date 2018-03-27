@@ -4,33 +4,37 @@ import com.enokb.librarian.enums.BookType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookSearchResultDto {
+public class BookResultDto {
+
     private String isbn;
     private String name;
     private BigDecimal price;
     private BookType type;
     private String author;
     private String press;
+    private List<BookItemResultDto> items;
 
-    public BookSearchResultDto() {
+    public BookResultDto() {
     }
 
-    private BookSearchResultDto(Builder builder) {
+    private BookResultDto(Builder builder) {
         setIsbn(builder.isbn);
         setName(builder.name);
         setPrice(builder.price);
         setType(builder.type.getType());
         setAuthor(builder.author);
         setPress(builder.press);
+        setItems(builder.items);
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
-    public static Builder newBuilder(BookSearchResultDto copy) {
+    public static Builder newBuilder(BookResultDto copy) {
         Builder builder = new Builder();
         builder.isbn = copy.getIsbn();
         builder.name = copy.getName();
@@ -38,6 +42,7 @@ public class BookSearchResultDto {
         builder.type = copy.getType();
         builder.author = copy.getAuthor();
         builder.press = copy.getPress();
+        builder.items = copy.getItems();
         return builder;
     }
 
@@ -89,16 +94,12 @@ public class BookSearchResultDto {
         this.press = press;
     }
 
-    @Override
-    public String toString() {
-        return "BookSearchResultDto{" +
-                "isbn='" + isbn + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", type=" + type +
-                ", author='" + author + '\'' +
-                ", press='" + press + '\'' +
-                '}';
+    public List<BookItemResultDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<BookItemResultDto> items) {
+        this.items = items;
     }
 
 
@@ -109,6 +110,7 @@ public class BookSearchResultDto {
         private BookType type;
         private String author;
         private String press;
+        private List<BookItemResultDto> items;
 
         private Builder() {
         }
@@ -143,8 +145,13 @@ public class BookSearchResultDto {
             return this;
         }
 
-        public BookSearchResultDto build() {
-            return new BookSearchResultDto(this);
+        public Builder items(List<BookItemResultDto> val) {
+            items = val;
+            return this;
+        }
+
+        public BookResultDto build() {
+            return new BookResultDto(this);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.enokb.librarian.controller;
 
+import com.enokb.librarian.dto.book.BookResultDto;
 import com.enokb.librarian.dto.book.BookSearchDto;
-import com.enokb.librarian.dto.book.BookSearchResultDto;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.IBookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,9 +20,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -47,14 +45,14 @@ public class BookControllerTest {
                 .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
-    private List<BookSearchResultDto> mockSearchResult() {
-        List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
-        bookSearchResultDtos.add(BookSearchResultDto.newBuilder()
+    private List<BookResultDto> mockSearchResult() {
+        List<BookResultDto> bookSearchResultDtos = new ArrayList<>();
+        bookSearchResultDtos.add(BookResultDto.newBuilder()
                 .isbn("0001")
                 .author("孙煜冰")
                 .press("热干面出版社")
                 .build());
-        bookSearchResultDtos.add(BookSearchResultDto.newBuilder()
+        bookSearchResultDtos.add(BookResultDto.newBuilder()
                 .isbn("0002")
                 .author("林一")
                 .press("周黑鸭出版社")

@@ -7,17 +7,16 @@
  */
 package com.enokb.librarian.controller;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
 import com.enokb.librarian.config.exception.InvalidParamException;
+import com.enokb.librarian.config.exception.ResourceNotFoundException;
 import com.enokb.librarian.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  * @author Ksewen
@@ -32,16 +31,20 @@ public class AppWideExceptionHandler {
     private static final String ERROR_INVALIDPARAM_MESSAGE = "invalid params";
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDto<String> handleValidationException(ConstraintViolationException e) {
+    public ResponseEntity handleValidationException(ConstraintViolationException e) {
         for (ConstraintViolation<?> s : e.getConstraintViolations()) {
-            return new ResponseDto<String>(s.getMessage());
+            return new ResponseEntity(ResponseDto.invalidParam(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseDto<String>(ERROR_INVALIDPARAM_MESSAGE);
+        return new ResponseEntity(ResponseDto.invalidParam(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidParamException.class)
-    public ResponseEntity<ResponseDto<String>> invalidParamHandler(InvalidParamException e) {
-        return new ResponseEntity<ResponseDto<String>>(new ResponseDto<>(e.getMessage()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity invalidParamHandler(InvalidParamException e) {
+        return new ResponseEntity(ResponseDto.invalidParam(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity resourceNotFoundHandler(ResourceNotFoundException e) {
+        return new ResponseEntity(ResponseDto.notFound(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,6 +1,6 @@
 package com.enokb.librarian.service;
 
-import com.enokb.librarian.dto.book.BookSearchResultDto;
+import com.enokb.librarian.dto.book.BookResultDto;
 import com.enokb.librarian.enums.BookType;
 import com.enokb.librarian.generate.mapper.BookMapper;
 import com.enokb.librarian.generate.mapper.BookitemMapper;
@@ -48,7 +48,7 @@ public class BookServiceImplTest {
 
     @Test
     public void searchBook() {
-        List<BookSearchResultDto> result = bookService.searchBook(
+        List<BookResultDto> result = bookService.searchBook(
                 BookSearchModel.newBuilder().type(BookType.NOVEL.getType()).build());
         Assert.assertTrue(result.size() == 2);
         Assert.assertEquals("孙煜冰", result.get(0).getAuthor());

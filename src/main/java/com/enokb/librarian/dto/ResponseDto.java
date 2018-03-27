@@ -61,10 +61,34 @@ public class ResponseDto<T> {
     }
 
     public static <T> ResponseDto<T> ok() {
-        return new ResponseDto<>(null);
+        return new ResponseDto<>(ResponseMsg.OK.getMsg(),null);
     }
 
     public static <T> ResponseDto<T> ok(T data) {
         return new ResponseDto<>(ResponseMsg.OK.getMsg(), data);
+    }
+
+    public static <T> ResponseDto<T> badRequest() {
+        return new ResponseDto<>(ResponseMsg.BAD_REQUEST.getMsg(),null);
+    }
+
+    public static <T> ResponseDto<T> badRequest(T data) {
+        return new ResponseDto<>(ResponseMsg.BAD_REQUEST.getMsg(),data);
+    }
+
+    public static <T> ResponseDto<T> notFound() {
+        return new ResponseDto<>(ResponseMsg.NOT_FOUND.getMsg(),null);
+    }
+
+    public static <T> ResponseDto<T> notFound(T data) {
+        return new ResponseDto<>(ResponseMsg.NOT_FOUND.getMsg(),data);
+    }
+
+    public static <T> ResponseDto<T> invalidParam() {
+        return new ResponseDto<>(ResponseMsg.INVALID_PARAM.getMsg(),null);
+    }
+
+    public static <T> ResponseDto<T> invalidParam(T data) {
+        return new ResponseDto<>(ResponseMsg.INVALID_PARAM.getMsg(),data);
     }
 }

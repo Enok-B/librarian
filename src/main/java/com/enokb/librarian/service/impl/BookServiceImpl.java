@@ -1,7 +1,8 @@
 package com.enokb.librarian.service.impl;
 
+import com.enokb.librarian.config.exception.ResourceNotFoundException;
+import com.enokb.librarian.dto.book.BookResultDto;
 import com.enokb.librarian.dto.book.BookItemResultDto;
-import com.enokb.librarian.dto.book.BookSearchResultDto;
 import com.enokb.librarian.generate.mapper.BookMapper;
 import com.enokb.librarian.generate.mapper.BookitemMapper;
 import com.enokb.librarian.generate.model.Book;
@@ -10,13 +11,12 @@ import com.enokb.librarian.mapper.BookExtMapper;
 import com.enokb.librarian.model.BookEntryModel;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.IBookService;
+import com.enokb.librarian.utils.BeanMapperUtil;
 import com.enokb.librarian.utils.IDUtil;
 import com.enokb.librarian.utils.ListUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -36,26 +36,26 @@ public class BookServiceImpl implements IBookService {
     private BookitemMapper bookitemMapper;
 
     @Override
-    public List<BookSearchResultDto> searchBook(BookSearchModel bookSearchModel) {
+    public List<BookResultDto> searchBook(BookSearchModel bookSearchModel) {
         bookSearchModel.setIsbn(StringUtils.isEmpty(bookSearchModel.getIsbn())
                 ? null : bookSearchModel.getIsbn().replaceAll("-", ""));
         List<Book> bookDomains = bookExtMapper.searchBook(bookSearchModel);
-//        if (!CollectionUtils.isEmpty(bookDomains)) {
-//            List<BookSearchResultDto> bookSearchResultDtos = new ArrayList<>();
-//            bookDomains.forEach(domain -> {
-//                BookSearchResultDto bookSearchResultDto = new BookSearchResultDto();
-//                BeanUtils.copyProperties(domain, bookSearchResultDto);
-//                bookSearchResultDtos.add(bookSearchResultDto);
-//            });
-//            return bookSearchResultDtos;
-//        }
-        return ListUtil.copyListProperties(bookDomains, new ArrayList<>(), BookSearchResultDto.class);
+        return ListUtil.copyListProperties(bookDomains, new ArrayList<>(), BookResultDto.class);
     }
 
     @Override
-    public List<BookItemResultDto> bookDetail(String isbn) {
+    public BookResultDto bookDetail(String isbn) {
+        if (!StringUtils.isEmpty(isbn)){
+            isbn = isbn.replaceAll("-", "");
+        }
         List<Bookitem> source = bookExtMapper.bookDetail(isbn);
-        return ListUtil.copyListProperties(source, new ArrayList<>(), BookItemResultDto.class);
+        Book book = bookMapper.selectByPrimaryKey(isbn);
+        if (book == null) {
+            throw new ResourceNotFoundException("could not find book, isbn : " + isbn);
+        }
+        BookResultDto bookDto = BeanMapperUtil.createAndCopyProperties(book, BookResultDto.class);
+        bookDto.setItems(ListUtil.copyListProperties(source, new ArrayList<>(), BookItemResultDto.class));
+        return bookDto;
     }
 
     @Override
