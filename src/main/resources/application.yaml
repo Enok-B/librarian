@@ -24,3 +24,8 @@ jwt:
       path: auth
       refresh: refresh
       register: "auth/register"
+logging:
+  level:
+    com.enokb.librarian: debug
+
+# log
