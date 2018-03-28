@@ -34,7 +34,7 @@ public interface UserFavorExtMapper {
     @Select("SELECT id, isbn, area, status, loanDate, renewal " +
             "FROM bookitem AS b " +
             "WHERE id IN(" +
-            "SELECT distinct bookId FROM user_favor WHERE userId='9195c3e5b3f14f49862aa7676d4431ea' AND isDel=0 " +
+            "SELECT distinct bookId FROM user_favor WHERE userId=#{userId} AND isDel=0 " +
             ")")
     List<Bookitem> selectByUserId(@Param("userId") String userId);
 }

@@ -40,7 +40,7 @@ public class UserFavorController {
                 .favorBook(userId, request.getId(), request.isFavor())), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "收藏/取消收藏", produces = "application/json")
+    @ApiOperation(value = "收藏列表", produces = "application/json")
     @GetMapping("/list")
     public ResponseEntity<ResponseDto> list() {
         String userId = authentication.getUserId();
