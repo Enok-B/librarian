@@ -1,6 +1,6 @@
 package com.enokb.librarian.mapper;
 
-import com.enokb.librarian.dto.userfavor.FavorBookListDto;
+import com.enokb.librarian.domain.FavorBookListDomain;
 import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.UserFavor;
 import org.apache.ibatis.annotations.Insert;
@@ -45,5 +45,5 @@ public interface UserFavorExtMapper {
             "ON b.isbn=bm.isbn " +
             "WHERE id IN( " +
             "SELECT distinct bookId FROM user_favor WHERE userId=#{userId} AND isDel=0)")
-    List<FavorBookListDto> userFavorList(@Param("userId") String userId);
+    List<FavorBookListDomain> userFavorList(@Param("userId") String userId);
 }

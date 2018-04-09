@@ -1,6 +1,5 @@
-package com.enokb.librarian.dto.userfavor;
+package com.enokb.librarian.domain;
 
-import com.enokb.librarian.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ import java.util.Date;
  **/
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FavorBookListDto {
+public class FavorBookListDomain {
     private String id;
 
     private String isbn;
@@ -26,7 +25,7 @@ public class FavorBookListDto {
 
     private Integer area;
 
-    private BookStatus status;
+    private Integer status;
 
     private Date loandate;
 
@@ -78,18 +77,13 @@ public class FavorBookListDto {
         this.area = area;
     }
 
-    public BookStatus getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-//    public void setStatus(BookStatus status) {
-//        this.status = status;
-//    }
-
-    public void setStatus(int status) {
-        this.status = BookStatus.forStatus(status);
+    public void setStatus(Integer status) {
+        this.status = status;
     }
-
 
     public Date getLoandate() {
         return loandate;

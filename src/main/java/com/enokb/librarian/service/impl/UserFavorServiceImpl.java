@@ -5,9 +5,11 @@ import com.enokb.librarian.generate.model.UserFavor;
 import com.enokb.librarian.mapper.UserFavorExtMapper;
 import com.enokb.librarian.service.IUserFavorService;
 import com.enokb.librarian.utils.IDUtil;
+import com.enokb.librarian.utils.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class UserFavorServiceImpl implements IUserFavorService {
 
     @Override
     public List<FavorBookListDto> listFavor(String userId) {
-        return userFavorExtMapper.userFavorList(userId);
+        return ListUtil.copyListProperties(userFavorExtMapper.userFavorList(userId)
+                , new ArrayList<>(), FavorBookListDto.class);
     }
 }
