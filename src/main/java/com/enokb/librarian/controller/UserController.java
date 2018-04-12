@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +38,16 @@ public class UserController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
                 .userInfo(identity)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取用户信息", produces = "application/json")
+    @GetMapping("/borrowing")
+    public ResponseEntity<ResponseDto> userBorrowing() {
+        String userId = authentication.getUserId();
+        if (StringUtils.isEmpty(userId)) {
+            throw new NeedAuthenticationException();
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
+                .borrowing(userId)), HttpStatus.OK);
     }
 }

@@ -2,12 +2,14 @@ package com.enokb.librarian.service.impl;
 
 import com.enokb.librarian.config.exception.UserExistException;
 import com.enokb.librarian.domain.UserDomain;
+import com.enokb.librarian.dto.book.BookBorrowDto;
 import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.enums.UserRoles;
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
 import com.enokb.librarian.generate.mapper.UserMapper;
 import com.enokb.librarian.generate.model.RoleUser;
 import com.enokb.librarian.generate.model.User;
+import com.enokb.librarian.mapper.CheckOutLogExtMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.service.IUserService;
@@ -18,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @program: librarian
@@ -40,6 +44,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private CheckOutLogExtMapper checkOutLogExtMapper;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -78,5 +85,10 @@ public class UserServiceImpl implements IUserService {
         return userMapper.insert(userDomain) ==1
                 && roleUserMapper.insert(new RoleUser(IDUtil.newId(),
                 userDomain.getId(), UserRoles.ADMIN.getId())) == 1;
+    }
+
+    @Override
+    public List<BookBorrowDto> borrowing(String userId) {
+        return checkOutLogExtMapper.borrowing(userId);
     }
 }
