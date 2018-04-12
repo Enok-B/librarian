@@ -2,6 +2,7 @@ package com.enokb.librarian.service;
 
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
 import com.enokb.librarian.generate.mapper.UserMapper;
+import com.enokb.librarian.mapper.CheckOutLogExtMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.service.impl.UserServiceImpl;
 import org.junit.Test;
@@ -31,6 +32,9 @@ public class UserServiceImplTest {
 
     @MockBean
     private UserDetailsService userDetailsService;
+
+    @MockBean
+    private CheckOutLogExtMapper checkOutLogExtMapper;
 
     @MockBean
     private PasswordEncoder encoder;
