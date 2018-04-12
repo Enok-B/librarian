@@ -6,6 +6,7 @@ import com.enokb.librarian.dto.book.BookSearchDto;
 import com.enokb.librarian.model.BookSearchModel;
 import com.enokb.librarian.service.IBookService;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/book")
@@ -38,7 +38,7 @@ public class BookController {
 
     @ApiOperation(value = "书籍详情", produces = "application/json")
     @GetMapping("/detail")
-    public ResponseEntity<ResponseDto> detail(@NotNull(message = "{book.isbn.null}") @RequestParam String isbn) {
+    public ResponseEntity<ResponseDto> detail(@NotBlank(message = "{book.isbn.null}") @RequestParam String isbn) {
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iBookService
                 .bookDetail(isbn)), HttpStatus.OK);
     }

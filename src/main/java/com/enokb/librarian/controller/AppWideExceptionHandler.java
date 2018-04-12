@@ -33,7 +33,7 @@ public class AppWideExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleValidationException(ConstraintViolationException e) {
         for (ConstraintViolation<?> s : e.getConstraintViolations()) {
-            return new ResponseEntity(ResponseDto.invalidParam(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(ResponseDto.invalidParam(s.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(ResponseDto.invalidParam(), HttpStatus.BAD_REQUEST);
     }
