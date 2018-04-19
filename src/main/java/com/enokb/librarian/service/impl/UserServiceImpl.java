@@ -1,5 +1,6 @@
 package com.enokb.librarian.service.impl;
 
+import com.enokb.librarian.config.exception.IncorrectStatusException;
 import com.enokb.librarian.config.exception.UserExistException;
 import com.enokb.librarian.domain.UserDomain;
 import com.enokb.librarian.dto.book.BookBorrowDto;
@@ -7,8 +8,10 @@ import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.enums.UserRoles;
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
 import com.enokb.librarian.generate.mapper.UserMapper;
+import com.enokb.librarian.generate.model.Checkoutlog;
 import com.enokb.librarian.generate.model.RoleUser;
 import com.enokb.librarian.generate.model.User;
+import com.enokb.librarian.mapper.BookItemExtMapper;
 import com.enokb.librarian.mapper.CheckOutLogExtMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.model.UserRegisterModel;
@@ -47,6 +50,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private CheckOutLogExtMapper checkOutLogExtMapper;
+
+    @Autowired
+    private BookItemExtMapper bookItemExtMapper;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -90,5 +96,13 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<BookBorrowDto> borrowing(String userId) {
         return checkOutLogExtMapper.borrowing(userId);
+    }
+
+    @Override
+    public boolean renewal(String userId, String bookItemId) {
+        Checkoutlog log = checkOutLogExtMapper.logSelectByUserAndBook(userId, bookItemId);
+        if (log != null && log.getStatus() != true)
+            throw new IncorrectStatusException("not borrowed! bookItem:" + bookItemId);
+        return bookItemExtMapper.updateRenewalBybookId(bookItemId) > 0;
     }
 }

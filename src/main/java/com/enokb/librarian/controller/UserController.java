@@ -1,7 +1,9 @@
 package com.enokb.librarian.controller;
 
+import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.config.exception.NeedAuthenticationException;
 import com.enokb.librarian.dto.ResponseDto;
+import com.enokb.librarian.dto.user.RenewalDto;
 import com.enokb.librarian.security.Authentication;
 import com.enokb.librarian.service.IUserService;
 import io.swagger.annotations.ApiOperation;
@@ -9,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @program: librarian
@@ -49,5 +52,19 @@ public class UserController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
                 .borrowing(userId)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "借出图书", produces = "application/json")
+    @PutMapping("renewal")
+    public ResponseEntity<ResponseDto> operatorRenewal(@Valid @RequestBody RenewalDto request, BindingResult bindingResult ) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        String userId = authentication.getUserId();
+        if (StringUtils.isEmpty(userId)) {
+            throw new NeedAuthenticationException();
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
+                .renewal(userId, request.getBookItemId())), HttpStatus.OK);
     }
 }

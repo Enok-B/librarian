@@ -1,5 +1,6 @@
 package com.enokb.librarian.dto.admin;
 
+import com.enokb.librarian.dto.user.RenewalDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
@@ -12,15 +13,11 @@ import org.hibernate.validator.constraints.NotBlank;
  **/
 
 @ApiModel
-public class OperatorBorrowDto {
+public class OperatorBorrowDto extends RenewalDto {
 
     @ApiModelProperty(value = "用户identity", required = true, example = "syb")
     @NotBlank(message = "{auth.id.null}")
     private String identity;
-
-    @ApiModelProperty(value = "图书子项ID", required = true, example = "item")
-    @NotBlank(message = "{book.itemid.null}")
-    private String bookItemId;
 
     public String getIdentity() {
         return this.identity;
@@ -30,11 +27,5 @@ public class OperatorBorrowDto {
         this.identity = identity;
     }
 
-    public String getBookItemId() {
-        return this.bookItemId;
-    }
 
-    public void setBookItemId(String bookItemId) {
-        this.bookItemId = bookItemId;
-    }
 }

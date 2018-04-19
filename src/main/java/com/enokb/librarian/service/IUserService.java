@@ -12,4 +12,5 @@ public interface IUserService {
     UserDto userInfo(String identity);
     boolean newAdmin(UserRegisterModel userDto);
     List<BookBorrowDto> borrowing(String userId);
+    boolean renewal(String userId, String bookItemId);
 }
