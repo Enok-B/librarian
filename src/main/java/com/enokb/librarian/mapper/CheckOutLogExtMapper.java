@@ -1,6 +1,7 @@
 package com.enokb.librarian.mapper;
 
 import com.enokb.librarian.dto.book.BookBorrowDto;
+import com.enokb.librarian.generate.model.Checkoutlog;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,8 @@ public interface CheckOutLogExtMapper {
             "LEFT JOIN book b on bi.isbn=b.isbn " +
             "where userId=#{userId}")
     List<BookBorrowDto> borrowing(@Param("userId") String userId);
+
+    @Select("SELECT id,status FROM checkoutlog " +
+            "where userId=#{userId} and bookId=#{bookId}")
+    Checkoutlog logSelectByUserAndBook(@Param("userId") String userId, @Param("bookId") String bookItemId);
 }
