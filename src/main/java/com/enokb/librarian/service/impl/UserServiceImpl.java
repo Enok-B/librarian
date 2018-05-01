@@ -5,6 +5,7 @@ import com.enokb.librarian.config.exception.UserExistException;
 import com.enokb.librarian.domain.UserDomain;
 import com.enokb.librarian.dto.book.BookBorrowDto;
 import com.enokb.librarian.dto.user.UserDto;
+import com.enokb.librarian.enums.BookStatus;
 import com.enokb.librarian.enums.UserRoles;
 import com.enokb.librarian.generate.mapper.AppointmentMapper;
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
@@ -115,7 +116,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional
     public boolean appointment(String userId, String bookItemId) {
-        return bookItemExtMapper.appointment(bookItemId) > 0 &&
-                appointmentMapper.insert(new Appointment(IDUtil.newId(), bookItemId, userId, new Date(), true)) > 0;
+        return bookItemExtMapper.updateStatusById(BookStatus.APPOINTMENT_PENDING.getStatus(), bookItemId) > 0 &&
+                appointmentMapper.insert(new Appointment(IDUtil.newId(), bookItemId, userId, new Date())) > 0;
     }
 }

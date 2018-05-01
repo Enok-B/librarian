@@ -5,10 +5,7 @@ import com.enokb.librarian.config.exception.OverQuotaException;
 import com.enokb.librarian.config.exception.ResourceNotFoundException;
 import com.enokb.librarian.dto.book.BookBorrowDto;
 import com.enokb.librarian.enums.BookStatus;
-import com.enokb.librarian.generate.mapper.BookMapper;
-import com.enokb.librarian.generate.mapper.BookitemMapper;
-import com.enokb.librarian.generate.mapper.CheckoutlogMapper;
-import com.enokb.librarian.generate.mapper.UserMapper;
+import com.enokb.librarian.generate.mapper.*;
 import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.Checkoutlog;
@@ -103,5 +100,10 @@ public class AdminServiceImpl implements IAdminService {
     public boolean revert(String bookItemId, String operator) {
         return checkOutLogExtMapper.revert(bookItemId, operator) > 0 &&
                 bookItemExtMapper.revert(bookItemId) > 0;
+    }
+
+    @Override
+    public boolean confirmAppointment(String bookItemId) {
+        return bookItemExtMapper.updateStatusById(BookStatus.APPOINTMENT.getStatus(), bookItemId) > 0;
     }
 }

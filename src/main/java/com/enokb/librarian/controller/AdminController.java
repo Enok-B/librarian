@@ -89,4 +89,17 @@ public class AdminController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.revert(request.getBookItemId(), userId)), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "预约确认", produces = "application/json")
+    @PutMapping("/confirmAppointment")
+    public ResponseEntity<ResponseDto> confirmAppointment(@Valid @RequestBody OperatorBookItemDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        String userId = authentication.getUserId();
+        if (StringUtils.isEmpty(userId)) {
+            throw new NeedAuthenticationException();
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.confirmAppointment(request.getBookItemId())), HttpStatus.OK);
+    }
 }
