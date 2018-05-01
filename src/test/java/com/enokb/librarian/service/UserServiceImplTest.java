@@ -1,5 +1,6 @@
 package com.enokb.librarian.service;
 
+import com.enokb.librarian.generate.mapper.AppointmentMapper;
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
 import com.enokb.librarian.generate.mapper.UserMapper;
 import com.enokb.librarian.mapper.BookItemExtMapper;
@@ -39,6 +40,9 @@ public class UserServiceImplTest {
 
     @MockBean
     private BookItemExtMapper bookItemExtMapper;
+
+    @MockBean
+    private AppointmentMapper appointmentMapper;
 
     @MockBean
     private PasswordEncoder encoder;
