@@ -4,4 +4,5 @@ import com.enokb.librarian.dto.book.BookBorrowDto;
 
 public interface IAdminService {
     BookBorrowDto borrow(String userId, String bookItemId, String operator);
+    void revert(String bookItemId, String operator);
 }

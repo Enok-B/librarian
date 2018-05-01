@@ -6,6 +6,7 @@ import com.enokb.librarian.dto.ResponseDto;
 import com.enokb.librarian.dto.admin.AdminAddDto;
 import com.enokb.librarian.dto.admin.BookEntryDto;
 import com.enokb.librarian.dto.admin.OperatorBorrowDto;
+import com.enokb.librarian.dto.user.RenewalDto;
 import com.enokb.librarian.model.BookEntryModel;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.security.Authentication;
@@ -20,10 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -77,5 +75,20 @@ public class AdminController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.borrow(request.getIdentity(), request.getBookItemId()
                 ,authentication.getUserId())), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "归还图书", produces = "application/json")
+    @PutMapping("/operatorRevert")
+    public ResponseEntity<ResponseDto> operatorRevert(@Valid @RequestBody RenewalDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        String userId = authentication.getUserId();
+        if (StringUtils.isEmpty(userId)) {
+            throw new NeedAuthenticationException();
+        }
+
+        iAdminService.revert(request.getBookItemId(), userId);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(), HttpStatus.OK);
     }
 }

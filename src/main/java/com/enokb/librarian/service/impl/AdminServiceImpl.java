@@ -13,6 +13,8 @@ import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.Checkoutlog;
 import com.enokb.librarian.generate.model.User;
+import com.enokb.librarian.mapper.BookItemExtMapper;
+import com.enokb.librarian.mapper.CheckOutLogExtMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
 import com.enokb.librarian.service.IAdminService;
 import com.enokb.librarian.utils.BeanMapperUtil;
@@ -44,10 +46,16 @@ public class AdminServiceImpl implements IAdminService {
     private BookitemMapper bookitemMapper;
 
     @Autowired
+    private BookItemExtMapper bookItemExtMapper;
+
+    @Autowired
     private BookMapper bookMapper;
 
     @Autowired
     private CheckoutlogMapper checkoutlogMapper;
+
+    @Autowired
+    private CheckOutLogExtMapper checkOutLogExtMapper;
 
     @Override
     @Transactional
@@ -88,5 +96,12 @@ public class AdminServiceImpl implements IAdminService {
         BeanUtils.copyProperties(book, result);
         result.setLoanDate(bookItem.getLoandate());
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void revert(String bookItemId, String operator) {
+        checkOutLogExtMapper.revert(bookItemId, operator);
+        bookItemExtMapper.revert(bookItemId);
     }
 }

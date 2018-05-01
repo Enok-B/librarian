@@ -4,6 +4,7 @@ import com.enokb.librarian.dto.book.BookBorrowDto;
 import com.enokb.librarian.generate.model.Checkoutlog;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface CheckOutLogExtMapper {
     @Select("SELECT id,status FROM checkoutlog " +
             "where userId=#{userId} and bookId=#{bookId}")
     Checkoutlog logSelectByUserAndBook(@Param("userId") String userId, @Param("bookId") String bookItemId);
+
+    @Update("update checkoutlog set status=0, operator=#{operatorId} where bookId=#{bookId}")
+    int revert(@Param("bookId") String bookId, @Param("operatorId") String operatorId);
 }
