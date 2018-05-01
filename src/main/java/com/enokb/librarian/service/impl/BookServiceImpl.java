@@ -69,6 +69,6 @@ public class BookServiceImpl implements IBookService {
         }
         return result == 1 &&
                 bookitemMapper.insert(new Bookitem(IDUtil.newId(), book.getIsbn(), area,
-                        status, new Date(), null, null, true, userId)) == 1;
+                        status, new Date(), null, null, true, userId, false)) == 1;
     }
 }

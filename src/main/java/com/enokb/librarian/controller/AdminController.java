@@ -6,7 +6,7 @@ import com.enokb.librarian.dto.ResponseDto;
 import com.enokb.librarian.dto.admin.AdminAddDto;
 import com.enokb.librarian.dto.admin.BookEntryDto;
 import com.enokb.librarian.dto.admin.OperatorBorrowDto;
-import com.enokb.librarian.dto.user.RenewalDto;
+import com.enokb.librarian.dto.user.OperatorBookItemDto;
 import com.enokb.librarian.model.BookEntryModel;
 import com.enokb.librarian.model.UserRegisterModel;
 import com.enokb.librarian.security.Authentication;
@@ -74,12 +74,12 @@ public class AdminController {
             throw new NeedAuthenticationException();
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.borrow(request.getIdentity(), request.getBookItemId()
-                ,authentication.getUserId())), HttpStatus.OK);
+                , authentication.getUserId())), HttpStatus.OK);
     }
 
     @ApiOperation(value = "归还图书", produces = "application/json")
     @PutMapping("/operatorRevert")
-    public ResponseEntity<ResponseDto> operatorRevert(@Valid @RequestBody RenewalDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> operatorRevert(@Valid @RequestBody OperatorBookItemDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -87,8 +87,6 @@ public class AdminController {
         if (StringUtils.isEmpty(userId)) {
             throw new NeedAuthenticationException();
         }
-
-        iAdminService.revert(request.getBookItemId(), userId);
-        return new ResponseEntity<ResponseDto>(ResponseDto.ok(), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.revert(request.getBookItemId(), userId)), HttpStatus.OK);
     }
 }

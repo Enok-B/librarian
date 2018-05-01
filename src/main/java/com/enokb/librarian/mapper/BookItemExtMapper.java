@@ -10,6 +10,9 @@ public interface BookItemExtMapper {
             "where id=#{bookId}")
     int updateRenewalBybookId(@Param("bookId") String bookId);
 
-    @Update("update bookitem set renewal=1 where id=#{id}")
+    @Update("update bookitem set renewal=1, status=1, loanDate=null, loanUserId=null where id=#{id}")
     int revert(@Param("id") String bookItemId);
+
+    @Update("update bookitem set status=3 where id=#{}")
+    int appointment(@Param("id") String bookItemId);
 }

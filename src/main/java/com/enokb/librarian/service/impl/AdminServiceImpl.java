@@ -100,8 +100,8 @@ public class AdminServiceImpl implements IAdminService {
 
     @Override
     @Transactional
-    public void revert(String bookItemId, String operator) {
-        checkOutLogExtMapper.revert(bookItemId, operator);
-        bookItemExtMapper.revert(bookItemId);
+    public boolean revert(String bookItemId, String operator) {
+        return checkOutLogExtMapper.revert(bookItemId, operator) > 0 &&
+                bookItemExtMapper.revert(bookItemId) > 0;
     }
 }

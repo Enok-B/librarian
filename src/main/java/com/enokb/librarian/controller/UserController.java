@@ -3,7 +3,7 @@ package com.enokb.librarian.controller;
 import com.enokb.librarian.config.exception.InvalidParamException;
 import com.enokb.librarian.config.exception.NeedAuthenticationException;
 import com.enokb.librarian.dto.ResponseDto;
-import com.enokb.librarian.dto.user.RenewalDto;
+import com.enokb.librarian.dto.user.OperatorBookItemDto;
 import com.enokb.librarian.security.Authentication;
 import com.enokb.librarian.service.IUserService;
 import io.swagger.annotations.ApiOperation;
@@ -54,9 +54,9 @@ public class UserController {
                 .borrowing(userId)), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "借出图书", produces = "application/json")
-    @PutMapping("renewal")
-    public ResponseEntity<ResponseDto> operatorRenewal(@Valid @RequestBody RenewalDto request, BindingResult bindingResult ) {
+    @ApiOperation(value = "续借图书", produces = "application/json")
+    @PutMapping("/renewal")
+    public ResponseEntity<ResponseDto> operatorRenewal(@Valid @RequestBody OperatorBookItemDto request, BindingResult bindingResult ) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -66,5 +66,19 @@ public class UserController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
                 .renewal(userId, request.getBookItemId())), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "预约图书", produces = "application/json")
+    @PostMapping("/appointment")
+    public ResponseEntity<ResponseDto> appointment(@Valid @RequestBody OperatorBookItemDto request, BindingResult bindingResult ) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        String userId = authentication.getUserId();
+        if (StringUtils.isEmpty(userId)) {
+            throw new NeedAuthenticationException();
+        }
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iUserService
+                .appointment(userId, request.getBookItemId())), HttpStatus.OK);
     }
 }

@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
  **/
 
 @ApiModel
-public class RenewalDto {
+public class OperatorBookItemDto {
 
     @ApiModelProperty(value = "图书子项ID", required = true, example = "item")
     @NotBlank(message = "{book.itemid.null}")

@@ -6,8 +6,10 @@ import com.enokb.librarian.domain.UserDomain;
 import com.enokb.librarian.dto.book.BookBorrowDto;
 import com.enokb.librarian.dto.user.UserDto;
 import com.enokb.librarian.enums.UserRoles;
+import com.enokb.librarian.generate.mapper.AppointmentMapper;
 import com.enokb.librarian.generate.mapper.RoleUserMapper;
 import com.enokb.librarian.generate.mapper.UserMapper;
+import com.enokb.librarian.generate.model.Appointment;
 import com.enokb.librarian.generate.model.Checkoutlog;
 import com.enokb.librarian.generate.model.RoleUser;
 import com.enokb.librarian.generate.model.User;
@@ -24,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +56,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private BookItemExtMapper bookItemExtMapper;
+
+    @Autowired
+    private AppointmentMapper appointmentMapper;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -104,5 +110,12 @@ public class UserServiceImpl implements IUserService {
         if (log != null && log.getStatus() != true)
             throw new IncorrectStatusException("not borrowed! bookItem:" + bookItemId);
         return bookItemExtMapper.updateRenewalBybookId(bookItemId) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean appointment(String userId, String bookItemId) {
+        return bookItemExtMapper.appointment(bookItemId) > 0 &&
+                appointmentMapper.insert(new Appointment(IDUtil.newId(), bookItemId, userId, new Date(), true)) > 0;
     }
 }

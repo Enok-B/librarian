@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum BookStatus {
-    DEL(0, "未入库"), REGULAR(1, "在库"), BORROWED(2, "已借出"), APPOINTMENT(3, "预约");
+    DEL(0, "未入库"), REGULAR(1, "在库"), BORROWED(2, "已借出"), APPOINTMENT_PENDING(3,"预约待审核"),APPOINTMENT(4, "预约");
 
     private int status;
     private String msg;

@@ -1,6 +1,6 @@
 package com.enokb.librarian.dto.admin;
 
-import com.enokb.librarian.dto.user.RenewalDto;
+import com.enokb.librarian.dto.user.OperatorBookItemDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
  **/
 
 @ApiModel
-public class OperatorBorrowDto extends RenewalDto {
+public class OperatorBorrowDto extends OperatorBookItemDto {
 
     @ApiModelProperty(value = "用户identity", required = true, example = "syb")
     @NotBlank(message = "{auth.id.null}")
