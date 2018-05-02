@@ -27,5 +27,7 @@ jwt:
 logging:
   level:
     com.enokb.librarian: debug
+  file: log/librarian.log
+  path: log/
 
 # log
