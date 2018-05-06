@@ -43,7 +43,7 @@ public class UserController {
                 .userInfo(identity)), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取用户信息", produces = "application/json")
+    @ApiOperation(value = "获取用户借阅图书", produces = "application/json")
     @GetMapping("/borrowing")
     public ResponseEntity<ResponseDto> userBorrowing() {
         String userId = authentication.getUserId();

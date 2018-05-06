@@ -74,12 +74,12 @@ public class AdminController {
             throw new NeedAuthenticationException();
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.borrow(request.getIdentity(), request.getBookItemId()
-                , authentication.getUserId())), HttpStatus.OK);
+                , userId)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "归还图书", produces = "application/json")
     @PutMapping("/operatorRevert")
-    public ResponseEntity<ResponseDto> operatorRevert(@Valid @RequestBody OperatorBookItemDto request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDto> operatorRevert(@Valid @RequestBody OperatorBorrowDto request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParamException(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -87,7 +87,8 @@ public class AdminController {
         if (StringUtils.isEmpty(userId)) {
             throw new NeedAuthenticationException();
         }
-        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.revert(request.getBookItemId(), userId)), HttpStatus.OK);
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.revert(request.getIdentity(), request.getBookItemId(),
+                userId)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "预约确认", produces = "application/json")

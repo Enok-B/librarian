@@ -1,6 +1,7 @@
 package com.enokb.librarian.service.impl;
 
 import com.enokb.librarian.config.exception.IncorrectStatusException;
+import com.enokb.librarian.config.exception.NotAppointmentException;
 import com.enokb.librarian.config.exception.OverQuotaException;
 import com.enokb.librarian.config.exception.ResourceNotFoundException;
 import com.enokb.librarian.dto.book.BookBorrowDto;
@@ -10,6 +11,7 @@ import com.enokb.librarian.generate.model.Book;
 import com.enokb.librarian.generate.model.Bookitem;
 import com.enokb.librarian.generate.model.Checkoutlog;
 import com.enokb.librarian.generate.model.User;
+import com.enokb.librarian.mapper.AppointmentExtMapper;
 import com.enokb.librarian.mapper.BookItemExtMapper;
 import com.enokb.librarian.mapper.CheckOutLogExtMapper;
 import com.enokb.librarian.mapper.UserExtMapper;
@@ -54,6 +56,9 @@ public class AdminServiceImpl implements IAdminService {
     @Autowired
     private CheckOutLogExtMapper checkOutLogExtMapper;
 
+    @Autowired
+    private AppointmentExtMapper appointmentExtMapper;
+
     @Override
     @Transactional
     public BookBorrowDto borrow(String userIdentity, String bookItemId, String operator) {
@@ -66,8 +71,14 @@ public class AdminServiceImpl implements IAdminService {
         Bookitem bookItem = bookitemMapper.selectByPrimaryKey(bookItemId);
         if (bookItem == null)
             throw new ResourceNotFoundException("bookItem:" + bookItemId);
-        if (bookItem.getStatus() != 1)
+        if (bookItem.getStatus() != BookStatus.REGULAR.getStatus() && bookItem.getStatus() != BookStatus.APPOINTMENT.getStatus())
             throw new IncorrectStatusException("bookItem:" + bookItemId);
+        if (bookItem.getStatus() == BookStatus.APPOINTMENT.getStatus()) {
+            String appointmentUser = appointmentExtMapper.appointmentUser(bookItemId);
+            if (!userIdentity.equals(appointmentUser))
+                throw new NotAppointmentException("bookItem:" + bookItemId);
+        }
+
 
         Date now = new Date();
 
@@ -97,9 +108,14 @@ public class AdminServiceImpl implements IAdminService {
 
     @Override
     @Transactional
-    public boolean revert(String bookItemId, String operator) {
+    public boolean revert(String userIdentity, String bookItemId, String operator) {
+        User user = userExtMapper.selectByIdentity(userIdentity);
+        if (user == null)
+            throw new ResourceNotFoundException("user:" + userIdentity);
+        user.setBorrowed(user.getBorrowed() - 1);
         return checkOutLogExtMapper.revert(bookItemId, operator) > 0 &&
-                bookItemExtMapper.revert(bookItemId) > 0;
+                bookItemExtMapper.revert(bookItemId) > 0 &&
+                userMapper.updateByPrimaryKey(user) > 0;
     }
 
     @Override

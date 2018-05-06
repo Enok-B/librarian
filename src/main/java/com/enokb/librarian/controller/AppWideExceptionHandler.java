@@ -7,10 +7,7 @@
  */
 package com.enokb.librarian.controller;
 
-import com.enokb.librarian.config.exception.IncorrectStatusException;
-import com.enokb.librarian.config.exception.InvalidParamException;
-import com.enokb.librarian.config.exception.OverQuotaException;
-import com.enokb.librarian.config.exception.ResourceNotFoundException;
+import com.enokb.librarian.config.exception.*;
 import com.enokb.librarian.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +55,10 @@ public class AppWideExceptionHandler {
     @ExceptionHandler(IncorrectStatusException.class)
     public ResponseEntity incorrectStatusHandler(IncorrectStatusException e) {
         return new ResponseEntity(ResponseDto.badRequest(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotAppointmentException.class)
+    public ResponseEntity notAppointmentHandler(NotAppointmentException e) {
+        return new ResponseEntity(ResponseDto.badRequest(e.getMessage()), HttpStatus.CONFLICT);
     }
 }
