@@ -103,4 +103,10 @@ public class AdminController {
         }
         return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.confirmAppointment(request.getBookItemId())), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "预约待确认图书列表", produces = "application/json")
+    @GetMapping("/apponitmentQuery")
+    public ResponseEntity<ResponseDto> apponitmentQuery(@RequestParam(required = false) Integer area) {
+        return new ResponseEntity<ResponseDto>(ResponseDto.ok(iAdminService.appointmentQuery(area)), HttpStatus.OK);
+    }
 }

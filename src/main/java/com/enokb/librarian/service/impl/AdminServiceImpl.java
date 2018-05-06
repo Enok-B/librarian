@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: librarian
@@ -121,5 +122,10 @@ public class AdminServiceImpl implements IAdminService {
     @Override
     public boolean confirmAppointment(String bookItemId) {
         return bookItemExtMapper.updateStatusById(BookStatus.APPOINTMENT.getStatus(), bookItemId) > 0;
+    }
+
+    @Override
+    public List<BookBorrowDto> appointmentQuery(Integer area) {
+        return bookItemExtMapper.listAppointment(area);
     }
 }

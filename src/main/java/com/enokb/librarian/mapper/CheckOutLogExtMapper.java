@@ -15,7 +15,7 @@ public interface CheckOutLogExtMapper {
             "FROM checkoutlog as cl " +
             "LEFT JOIN bookitem bi on cl.bookId=bi.id " +
             "LEFT JOIN book b on bi.isbn=b.isbn " +
-            "where cl.userId=#{userId} and cl.ststus=1")
+            "where cl.userId=#{userId} and cl.status=1")
     List<BookBorrowDto> borrowing(@Param("userId") String userId);
 
     @Select("SELECT id,status FROM checkoutlog " +

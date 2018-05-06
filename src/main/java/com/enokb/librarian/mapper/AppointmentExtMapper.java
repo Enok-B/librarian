@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface AppointmentExtMapper {
     @Select("select userid from appointment " +
             "where bookId=#{bookId} " +
-            "order by date limit 1")
+            "order by date desc limit 1")
     String appointmentUser(@Param("bookId") String bookId);
 }
