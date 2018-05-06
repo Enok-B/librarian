@@ -76,7 +76,7 @@ public class AdminServiceImpl implements IAdminService {
             throw new IncorrectStatusException("bookItem:" + bookItemId);
         if (bookItem.getStatus() == BookStatus.APPOINTMENT.getStatus()) {
             String appointmentUser = appointmentExtMapper.appointmentUser(bookItemId);
-            if (!userIdentity.equals(appointmentUser))
+            if (appointmentUser == null || !appointmentUser.equals(user.getId()))
                 throw new NotAppointmentException("bookItem:" + bookItemId);
         }
 
