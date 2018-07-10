@@ -13,6 +13,17 @@ spring:
     time-zone: GMT+8
     property-naming-strategy: LOWER_CASE
 
+jedis :
+  pool :
+    host : 127.0.0.1
+    port : 6379
+    password: Eyee3111
+    database: 0
+    config :
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis : 100000
+
 # JWT
 jwt:
   header: Authorization
